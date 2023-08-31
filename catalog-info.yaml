@@ -1,0 +1,17 @@
+# For more information about the available options please visit: http://go/backstage (VPN required)
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  annotations:
+    github.com/project-slug: unity/unity-cloud-blender-addon
+  name: unity-cloud-blender-addon
+  description: "Source code of a Blender add-on to showcase workflows of integration to Unity Cloud."
+  labels:
+    costcenter: "2212"
+  tags:
+    - planned-public
+    - enterprise
+spec:
+  type: other
+  lifecycle: experimental
+  owner: unity/digital-twins-sdk-admins

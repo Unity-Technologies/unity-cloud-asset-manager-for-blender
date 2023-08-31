@@ -1,0 +1,22 @@
+#Validation script for unity-cloud-blender-addon
+#This is used to validate your catalog-info.yaml 
+
+name: Validate Catalog-info.yaml
+on:
+  pull_request:
+    paths:
+      - 'catalog-info.yaml'
+  push:
+    paths:
+      - 'catalog-info.yaml'
+    branches: [main]
+
+jobs:
+  validate_catalog:
+    runs-on: unity-linux-runner
+    steps:
+      - id: 'Checkout'
+        uses: actions/checkout@v3
+
+      - id: 'Validate'
+        uses: 'actions/backstage-entity-validator@v0.3.2'
