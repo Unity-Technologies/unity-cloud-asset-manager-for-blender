@@ -4,23 +4,7 @@ from unity_cloud.models import *
 import os
 
 
-__env_var_name = 'UNITY_CLOUD_SERVICES_ENV'
-__env_variable: str
-
-__provider_env_name = 'UNITY_CLOUD_SERVICES_DOMAIN_PROVIDER'
-__provider_variable: str
-
-
 def initialize():
-    global __env_variable
-    global __provider_variable
-
-    __env_variable = os.getenv(__env_var_name)
-    os.environ[__env_var_name] = 'Staging'
-
-    __provider_variable = os.getenv(__provider_env_name)
-    os.environ[__provider_env_name] = 'UnityServices'
-
     ucam.identity.initialize()
     ucam.assets.initialize()
 
@@ -59,12 +43,3 @@ def get_projects(org_id: str) -> List[Project]:
 def uninitialize():
     ucam.identity.dispose()
     ucam.assets.dispose()
-    if __env_variable is not None:
-        os.environ[__env_var_name] = __env_variable
-    else:
-        del os.environ[__env_var_name]
-
-    if __provider_variable is not None:
-        os.environ[__provider_env_name] = __provider_variable
-    else:
-        del os.environ[__provider_env_name]
