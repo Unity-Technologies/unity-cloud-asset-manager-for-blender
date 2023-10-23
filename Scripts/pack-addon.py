@@ -55,9 +55,9 @@ all_systems = "all"
 def read_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('-n', '--name', default=default_name, help='Specify a name for the addon archive file')
-    parser.add_argument('-o', '--output', default=default_output, help='Specify a folder for the addon archive')
+    parser.add_argument('-o', '--output', default=default_output, help='Specify a folder to save the addon archive in')
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('-dw', '--download', action="store_true", help='Download wheel files when set')
+    group.add_argument('-dw', '--download', action="store_true", help='Download wheel files')
     group.add_argument('-lw', '--local', default=wheels_path, nargs='?',
                        help='Specify a folder to copy the wheel files from')
     systems_choices = ["windows", "macos", all_systems]
@@ -65,7 +65,7 @@ def read_arguments():
                         choices=systems_choices,
                         required=False,
                         default=all_systems,
-                        help='Specify target operation system')
+                        help='Specify target operation system. \'all\' is default value')
     return parser.parse_args()
 
 
