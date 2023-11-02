@@ -29,15 +29,15 @@ def get_platform_name(system: str, machine: str) -> str:
 operation_systems: dict[OperationSystem, dict[str, str]] = {
     OperationSystem.macos: {
         get_platform_name("darwin", ""):
-        "https://drive.google.com/uc?id=1HLg8wfs7GZxzJkFgKZ8Mfi00ggbfkfd7&export=download",
+        "https://drive.google.com/uc?id=1IxZ88Pa-y8Gya65owhdesFvDjuxnyLuf&export=download",
     },
 
     OperationSystem.windows: {
         get_platform_name("windows", "amd64"):
-        "https://drive.google.com/uc?id=1HWGO9Fp1-OcXdaCfPjQfjBcBZ3ur1EXM&export=download",
+        "https://drive.google.com/uc?id=1IwGXxYspTBAOdSOFFxi-UVKJ68_4VvwJ&export=download",
 
         get_platform_name("windows", "arm64"):
-        "https://drive.google.com/uc?id=1HLpJ-SDXGzOhQinleyuNPXDufNrzEW2G&export=download"
+        "https://drive.google.com/uc?id=1IyhIygJUZCrWQEVPLE6yPevtR5hVVNns&export=download"
     }
 }
 
