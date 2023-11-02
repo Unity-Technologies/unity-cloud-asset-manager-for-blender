@@ -27,7 +27,7 @@ def export_file(path: str, name: str, description: str, tags_list: List[str], or
     asset_id = ucam.assets.create_asset(asset_creation, org_id, project_id)
     version = '1'
     datasets = ucam.assets.get_dataset_list(org_id, project_id, asset_id, version)
-    upload_asset = AssetFileUploadInformation(org_id, project_id, asset_id, version, datasets[0].id, [path])
+    upload_asset = AssetFileUploadInformation(org_id, project_id, asset_id, version, datasets[0].id, path)
     ucam.assets.upload_file(upload_asset)
     ucam.interop.open_browser_to_asset_details(org_id, project_id, asset_id, version)
 
