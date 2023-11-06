@@ -9,8 +9,8 @@ def _export_fbx(file_path):
     bpy.ops.export_scene.fbx(filepath=file_path)
 
 def _get_preview_image(file_path):
-    bpy.context.scene.render.resolution_x = 512
-    bpy.context.scene.render.resolution_y = 512
+    bpy.context.scene.render.resolution_x = 1024
+    bpy.context.scene.render.resolution_y = 1024
     bpy.context.scene.render.image_settings.file_format = 'PNG'
     bpy.context.scene.render.filepath = file_path
     bpy.ops.render.render(write_still=True)
