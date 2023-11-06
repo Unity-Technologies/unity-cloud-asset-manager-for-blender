@@ -3,7 +3,6 @@ import unity_cloud as ucam
 from unity_cloud.models import *
 import os
 
-
 def initialize():
     ucam.initialize()
     ucam.identity.user_login.use()
@@ -31,6 +30,19 @@ def export_file(path: str, name: str, description: str, tags_list: List[str], or
     ucam.assets.upload_file(upload_asset)
     ucam.interop.open_browser_to_asset_details(org_id, project_id, asset_id, version)
 
+def export_file_with_preview(path: str, preview_path: str, name: str, description: str, tags_list: List[str], org_id: str, project_id: str):
+    asset_creation = AssetCreation(name,
+                                    description,
+                                    ucam.assets.asset_type.MODEL_3D, tags_list)
+
+    asset_id = ucam.assets.create_asset(asset_creation, org_id, project_id)
+    version = '1'
+    datasets = ucam.assets.get_dataset_list(org_id, project_id, asset_id, version)
+    upload_asset = AssetFileUploadInformation(org_id, project_id, asset_id, version, datasets[0].id, path)
+    upload_preview_file = AssetFileUploadInformation(org_id, project_id, asset_id, version, datasets[1].id, preview_path)
+    ucam.assets.upload_file(upload_asset)
+    ucam.assets.upload_file(upload_preview_file)
+    ucam.interop.open_browser_to_asset_details(org_id, project_id, asset_id, version)
 
 def get_organizations() -> List[Organization]:
     return ucam.identity.get_organization_list()

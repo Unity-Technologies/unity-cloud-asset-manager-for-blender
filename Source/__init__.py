@@ -94,6 +94,8 @@ class ExportToCloudOperator(bpy.types.Operator):
     description_input: bpy.props.StringProperty(name="Asset description:", default="")
     tags_input: bpy.props.StringProperty(name="Tags:", description="Asset tags separated by spaces: tag1 tag2",
                                          default="")
+    
+    generate_preview: bpy.props.BoolProperty(name="Generate preview", default=False)
 
     def execute(self, context):
         from .uc_addon import uc_addon_execute
@@ -101,8 +103,7 @@ class ExportToCloudOperator(bpy.types.Operator):
             selected_item = self.org_dropdown
             print(selected_item)
             tags = self.tags_input.split()
-            uc_addon_execute(self.org_dropdown, self.project_dropdown, self.name_input
-                             , self.description_input, tags_list=tags)
+            uc_addon_execute(self.org_dropdown, self.project_dropdown, self.name_input, self.description_input, tags_list=tags, generate_preview=self.generate_preview)
             self.report({'INFO'}, "Asset was uploaded to Unity Cloud Asset Manager")
         except Exception:
             self.report({'WARNING'}, "Failed to upload asset to Unity Cloud Asset Manager")
