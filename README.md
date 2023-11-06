@@ -1,6 +1,6 @@
 # Asset Manager for Blender
 
-AM4 Blender add-on allows to integrate Unity Cloud Asset Manager service within your Blender workflows.
+AM4 Blender add-on allows to integrate Unity Cloud Asset Manager service within your [Blender](https://www.blender.org/) workflows.
 This repository open sources the code of that addon, so that you can inspire from it - or build on top of it - to create your own custom AM integration flows, be it for Blender or any other software.
 This repository currently does not accept pull requests, review requests, or any other GitHub-hosted issue management requests.
 
@@ -16,16 +16,17 @@ To connect and find support, join the [Unity forum](https://forum.unity.com/foru
   - [How to build the add-on](#how-to-build-the-add-on)
     - [Prerequisites](#prerequisites)
     - [Building the add-on](#building-the-add-on)
-  - [How to install and run the add-on](#how-to-install-and-run-the-add-on)
+  - [How to install and use the add-on](#how-to-install-and-use-the-add-on)
     - [Prerequisites](#prerequisites-1)
     - [Installing the add-on](#installing-the-add-on)
-    - [Running the add-on](#running-the-add-on)
+    - [Publishing the 3D view as an asset to the Unity Cloud Asset Manager](#publishing-the-3d-view-as-an-asset-to-the-unity-cloud-asset-manager)
   - [Troubleshooting](#troubleshooting)
     - [Security limitations](#security-limitations)
   - [License](#license)
   - [Tell us what you think!](#tell-us-what-you-think)
 
 ### See also
+
 - [Technical overview of the addon](Documentation/technical-overview.md)
 - [Python SDK documentation](TODO-placeholder)
 
@@ -62,12 +63,13 @@ Option | Description
 -o OUTPUT, --output OUTPUT | Specify a folder to save the addon archive in. By default, will create a `Dist` folder at the root of the repository.
 -os {windows,macos,all}, --system {windows,macos,all} | Specify target platform. By default "all".
 
-## How to install and run the add-on
+## How to install and use the add-on
 
 ### Prerequisites
 
 To run the add-on, you'll need:
 - A (Unity account)[TODO-placeholder] or a (Service account)[TODO-placeholder] to access Unity Cloud services
+- Access to the Unity Cloud Asset Manager from the Unity Cloud Dashboard (TODO more details ?)
 - Blender 3.x installed on your machine
 
 ### Installing the add-on
@@ -77,12 +79,11 @@ To run the add-on, you'll need:
 3. Go to the Add-ons section
 4. Click "install" button
 ![installing the addon](Documentation/Images/install_addon.png)
-
 5. Select the `UCAM4Blender.zip` file that you built, then click "Install Add-on"
 6. Enable the add-on by checking the checkbox ; you should see a new `Unity Cloud` tab in your view.
 ![enabling the addon](Documentation/Images/enable_addon.png)
 
-### Running the add-on
+### Publishing the 3D view as an asset to the Unity Cloud Asset Manager
 
 1. From your 3D view, click on the `Unity Cloud` tab, then `Upload FBX to Asset Manager`
 ![opening the addon](Documentation/Images/open_addon.png)
