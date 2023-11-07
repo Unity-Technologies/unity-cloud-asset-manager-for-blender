@@ -24,7 +24,7 @@ def uc_addon_execute(org_id: str, project_id: str, name: str, description: str, 
         _export_fbx(temp_fbx_file)
 
         if generate_preview:
-            temp_preview_file = os.path.join(temp_dir, f"{name}.png")
+            temp_preview_file = os.path.join(temp_dir, "thumbnail.png")
             _get_preview_image(temp_preview_file)
             export_file_with_preview(temp_fbx_file, temp_preview_file, name, description, tags_list, org_id, project_id)
         else:
