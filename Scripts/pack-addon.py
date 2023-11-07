@@ -7,7 +7,7 @@ from log_utils import *
 
 
 default_output = "../Dist"
-default_name = "Unity Cloud Blender Addon"
+default_name = "UCAM4Blender"
 source_folder = "../Source"
 wheels_path = "../Source/wheels"
 addon_files = [
@@ -54,18 +54,12 @@ all_systems = "all"
 
 def read_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-n', '--name', default=default_name, help='Specify a name for the addon archive file')
-    parser.add_argument('-o', '--output', default=default_output, help='Specify a folder to save the addon archive in')
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('-dw', '--download', action="store_true", help='Download wheel files')
-    group.add_argument('-lw', '--local', default=wheels_path, nargs='?',
-                       help='Specify a folder to copy the wheel files from')
+    group.add_argument('-dw', '--download', action="store_true", help='Download Unity Cloud Python SDK dependency')
+    group.add_argument('-lw', '--local', default=wheels_path, nargs='?', help='Specify a local folder to copy the Unity Cloud Python SDK dependency from')
+    parser.add_argument('-o', '--output', default=default_output, help='Specify a folder to save the addon archive in. By default, will create a `Dist` folder at the root of the repository.')
     systems_choices = ["windows", "macos", all_systems]
-    parser.add_argument('-os', '--system',
-                        choices=systems_choices,
-                        required=False,
-                        default=all_systems,
-                        help='Specify target operation system. \'all\' is default value')
+    parser.add_argument('-os', '--system', choices=systems_choices, required=False, default=all_systems, help='Specify target platform. By default "all".')
     return parser.parse_args()
 
 
@@ -75,10 +69,10 @@ if __name__ == '__main__':
     zip_name: str
     if arguments.system == all_systems:
         systems.extend(list(OperationSystem))
-        zip_name = arguments.name
+        zip_name = default_name
     else:
         systems.append(OperationSystem[arguments.system])
-        zip_name = f"{arguments.name}_{arguments.system}"
+        zip_name = f"{default_name}_{arguments.system}"
 
     current_directory = os.getcwd()
     my_directory = os.path.dirname(os.path.abspath(__file__))
@@ -108,7 +102,7 @@ if __name__ == '__main__':
                 log_error(f"Failed to pack addon: Not all wheel files can be found.")
                 sys.exit(1)
 
-        result = create_zip(addon_files, arguments.output, arguments.name, zip_name)
+        result = create_zip(addon_files, arguments.output, default_name, zip_name)
         log_ok(f"Addon zip file created: \"{os.path.abspath(result)}\"")
     finally:
         os.chdir(current_directory)
