@@ -95,7 +95,7 @@ class ExportToCloudOperator(bpy.types.Operator):
     tags_input: bpy.props.StringProperty(name="Tags:", description="Asset tags separated by spaces: tag1 tag2",
                                          default="")
     
-    generate_preview: bpy.props.BoolProperty(name="Generate preview", default=False)
+    generate_preview: bpy.props.BoolProperty(name="Generate thumbnail", default=False)
 
     def execute(self, context):
         from .uc_addon import uc_addon_execute
