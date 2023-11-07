@@ -17,7 +17,7 @@ To connect and find support, join the [Unity forum](https://forum.unity.com/foru
   - [How do I...?](#how-do-i)
     - [Build the add-on](#build-the-add-on)
     - [Install the add-on](#install-the-add-on)
-    - [Publish the 3D view as an asset to the Unity Cloud Asset Manager](#publish-the-3d-view-as-an-asset-to-the-unity-cloud-asset-manager)
+    - [Publish the 3D view as an asset to Unity Cloud Asset Manager](#publish-the-3d-view-as-an-asset-to-unity-cloud-asset-manager)
   - [Troubleshooting](#troubleshooting)
     - [Security limitations](#security-limitations)
   - [See also](#see-also)
@@ -77,7 +77,7 @@ Option | Description
 6. Check the checkbox to enable the add-on. The `Unity Cloud` tab appears in your 3D view.
 ![enabling the add-on](Documentation/Images/enable_addon.png)
 
-### Publish the 3D view as an asset to the Unity Cloud Asset Manager
+### Publish the 3D view as an asset to Unity Cloud Asset Manager
 
 1. From your 3D view, go to **Unity Cloud** > **Upload FBX to Asset Manager**.
 ![opening the add-on](Documentation/Images/open_addon.png)
