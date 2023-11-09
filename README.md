@@ -27,12 +27,7 @@ To connect and find support, join the [Unity forum](https://forum.unity.com/foru
 
 ### System requirements
 
-To use the AM4 Blender add-on, you need the following:
-
-- Python 3.x installed on your machine
-- Blender 3.x installed on your machine
-- A (Unity account)[TODO-placeholder] or a (Service account)[TODO-placeholder] to access Unity Cloud services
-- Access to Unity Cloud Asset Manager from Unity Cloud Dashboard (TODO more details ?)
+To use the AM4 Blender add-on, you need Python 3.x installed on your machine.
 
 ### Supported platforms
 
@@ -44,11 +39,9 @@ AM4 Blender is compatible with:
 ### Licenses
 
 The Unity Cloud Asset Manager for Blender repository is available under the [GPL v2 license](GPL-license.txt).
-The Unity Cloud Python SDK that it relies is licensed under the [Unity Terms of Services](TODO-placeholder).
+The Unity Cloud Python SDK that it relies on licensed under the [Unity Terms of Services](TODO-placeholder).
 
 ## How do I...?
-
-Once installed in your Blender environment, AM4 Blender provides a quick and easy flow to export your current scene as a new asset in the Unity Cloud Asset Manager.
 
 ### Build the add-on
 
@@ -68,13 +61,20 @@ Option | Description
 
 ### Install the add-on
 
+Before you install the add-on in Blender, you need:
+
+- Blender 3.x installed on your machine
+- A (Unity account)[TODO-placeholder] or a (Service account)[TODO-placeholder] to access Unity Cloud services
+
+To install the add-on, follow these steps:
+
 1. Open Blender.
 2. Go to **Edit** > **Preferences**.
 3. Go to the **Add-ons** section.
 4. Select **Install**.
 ![installing the add-on](Documentation/Images/install_addon.png)
-5. Select the `UCAM4Blender.zip` file that you built, then select **Install Add-on**.
-6. Check the checkbox to enable the add-on. The `Unity Cloud` tab appears in your 3D view.
+1. Select the `UCAM4Blender.zip` file that you built, then select **Install Add-on**.
+2. Check the checkbox to enable the add-on. The `Unity Cloud` tab appears in your 3D view.
 ![enabling the add-on](Documentation/Images/enable_addon.png)
 
 ### Publish the 3D view as an asset to Unity Cloud Asset Manager
