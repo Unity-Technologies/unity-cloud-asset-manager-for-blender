@@ -38,8 +38,7 @@ AM4 Blender is compatible with:
 
 ### Licenses
 
-The Unity Cloud Asset Manager for Blender repository is available under the [GPL v2 license](GPL-license.txt).
-The Unity Cloud Python SDK that it relies on licensed under the [Unity Terms of Services](TODO-placeholder).
+The Unity Cloud Asset Manager for Blender repository is made available under the [GPL v2 license](GPL-license.txt).
 
 ## How do I...?
 
