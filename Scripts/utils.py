@@ -26,18 +26,21 @@ def get_platform_name(system: str, machine: str) -> str:
     return name
 
 
+sdk_version = "0.2.1"
+domain = "https://test.transformation.unity.com"
+url_format = f"{domain}/downloads/pythonsdks/release/{sdk_version}/unity_cloud-{sdk_version}-py3-none-{{0}}.whl"
 operation_systems: dict[OperationSystem, dict[str, str]] = {
     OperationSystem.macos: {
         get_platform_name("darwin", ""):
-        "https://drive.google.com/uc?id=1IxZ88Pa-y8Gya65owhdesFvDjuxnyLuf&export=download",
+        url_format.format("macosx_13_0_universal2"),
     },
 
     OperationSystem.windows: {
         get_platform_name("windows", "amd64"):
-        "https://drive.google.com/uc?id=1IwGXxYspTBAOdSOFFxi-UVKJ68_4VvwJ&export=download",
+        url_format.format("win_amd64"),
 
         get_platform_name("windows", "arm64"):
-        "https://drive.google.com/uc?id=1IyhIygJUZCrWQEVPLE6yPevtR5hVVNns&export=download"
+        url_format.format("win_arm64"),
     }
 }
 
@@ -78,19 +81,19 @@ def __download_file(download_path: str, file_url: str) -> bool:
         log_error(f"Failed to download from {file_url}. Status code: {response.code}")
         return False
 
-    if 'Content-Disposition' not in response.headers:
-        log_error(f"Failed to download from {file_url}: Downloaded data has unexpected format")
-        return False
+    decoded_filename: str
+    if 'Content-Disposition' in response.headers:
+        content_disposition = response.headers['Content-Disposition']
+        filename_match = re.search(r'filename\*=(?:UTF-8\'\'|utf-8\'\'|\'\'|"")?([^\'"]+)', content_disposition)
 
-    content_disposition = response.headers['Content-Disposition']
-    filename_match = re.search(r'filename\*=(?:UTF-8\'\'|utf-8\'\'|\'\'|"")?([^\'"]+)', content_disposition)
+        if not filename_match:
+            log_error(f"Failed to download from {file_url}: Downloaded data has unexpected format")
+            return False
 
-    if not filename_match:
-        log_error(f"Failed to download from {file_url}: Downloaded data has unexpected format")
-        return False
-
-    utf8_encoded_filename = filename_match.group(1)
-    decoded_filename = utf8_encoded_filename
+        utf8_encoded_filename = filename_match.group(1)
+        decoded_filename = utf8_encoded_filename
+    else:
+        decoded_filename = file_name = os.path.basename(file_url)
     with open(os.path.join(download_path, decoded_filename), "wb") as file:
         file.write(response.read())
     return True
