@@ -27,7 +27,11 @@ To connect and find support, join the [Unity forum](https://forum.unity.com/foru
 
 ### System requirements
 
-To use the AM4 Blender add-on, you need Python 3.x installed on your machine.
+To build the AM4 Blender add-on, you need Python 3.x installed on your machine.
+
+To install and use the AM4 Blender add-on, you need:
+- Blender 3.x installed on your machine
+- A (Unity account)[TODO-placeholder] to access Unity Cloud services
 
 ### Supported platforms
 
@@ -59,11 +63,6 @@ Option | Description
 `-os {windows,macos,all}, --system {windows,macos,all}` | Specify target platform. By default `all`.
 
 ### Install the add-on
-
-Before you install the add-on in Blender, you need:
-
-- Blender 3.x installed on your machine
-- A (Unity account)[TODO-placeholder] or a (Service account)[TODO-placeholder] to access Unity Cloud services
 
 To install the add-on, follow these steps:
 
