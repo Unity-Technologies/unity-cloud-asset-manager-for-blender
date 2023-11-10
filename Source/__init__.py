@@ -6,31 +6,25 @@ from .uc_wheel_installation import install_unity_cloud
 bl_info = {
     "name": "Upload FBX to Unity Cloud Asset Manager",
     "blender": (2, 93, 0),
-    "location": "View3D",
     "description": "Exports current scene to *.fbx and publishes it as a new asset in Unity Cloud Asset Manager",
     "category": "Import-Export"
 }
 
 
-uc_addon_name = "uc_addon.upload_to_cloud"
-uc_addon_btn_op = "uc_addon.button_operator"
-uc_addon_btn_lbl = "Upload FBX to Asset Manager"
+uc_dialog_op_name = "uc_addon.addon_dialog"
+upload_fbx_lbl = "Upload FBX to Asset Manager"
 
 
 class UC_Category(Menu):
-    # describe menu category and menu item
     bl_idname = "VIEW3D_MT_UC_category"
     bl_label = "Unity Cloud"
 
     def draw(self, context):
         layout = self.layout
-        layout.operator(uc_addon_name, text=uc_addon_btn_lbl)
+        layout.operator(uc_dialog_op_name, text=upload_fbx_lbl)
 
 
 def on_selected_org_changed(self, context):
-    print("on_selected_org_changed")
-    print(self.org_dropdown)
-    from .uc_asset_manager import get_projects
     refresh_projects(self.org_dropdown)
 
 
@@ -73,8 +67,8 @@ def get_projects(self, context):
     return project_items
 
 class ExportToCloudOperator(bpy.types.Operator):
-    bl_idname = uc_addon_name
-    bl_label = uc_addon_btn_lbl
+    bl_idname = uc_dialog_op_name
+    bl_label = upload_fbx_lbl
 
     org_dropdown: bpy.props.EnumProperty(
             items=get_organization,
@@ -100,10 +94,9 @@ class ExportToCloudOperator(bpy.types.Operator):
     def execute(self, context):
         from .uc_addon import uc_addon_execute
         try:
-            selected_item = self.org_dropdown
-            print(selected_item)
             tags = self.tags_input.split()
-            uc_addon_execute(self.org_dropdown, self.project_dropdown, self.name_input, self.description_input, tags_list=tags, generate_preview=self.generate_preview)
+            uc_addon_execute(self.org_dropdown, self.project_dropdown, self.name_input, self.description_input,
+                             tags_list=tags, generate_preview=self.generate_preview)
             self.report({'INFO'}, "Asset was uploaded to Unity Cloud Asset Manager")
         except Exception:
             self.report({'WARNING'}, "Failed to upload asset to Unity Cloud Asset Manager")
@@ -114,7 +107,6 @@ class ExportToCloudOperator(bpy.types.Operator):
         return {'FINISHED'}
 
     def cancel(self, context):
-        print("cancellation")
         from .uc_asset_manager import uninitialize
         uc_asset_manager.uninitialize()
 
@@ -132,8 +124,7 @@ classes = (UC_Category, ExportToCloudOperator)
 
 
 def draw_func(self, context):
-    layout = self.layout
-    layout.menu(UC_Category.bl_idname)
+    self.layout.menu(UC_Category.bl_idname)
 
 
 def register():
