@@ -12,11 +12,9 @@ source_folder = "../Source"
 wheels_path = "../Source/wheels"
 addon_files = [
     '__init__.py',
-    'uc_addon.py',
-    'uc_addon_ui.py',
+    'uc_blender_utils.py',
     'uc_asset_manager.py',
     'uc_wheel_installation.py',
-    'utils.py',
     'wheels',
 ]
 

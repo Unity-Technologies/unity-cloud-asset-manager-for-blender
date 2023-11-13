@@ -101,7 +101,8 @@ When building the add-on, the `-dw` option does not perform any integrity protec
 ## See also
 
 - [Technical overview of the add-on](Documentation/technical-overview.md)
-- [Python SDK documentation](TODO-placeholder)
+- [Unity Cloud Python SDK documentation](TODO-placeholder)
+- [How to create your custom integration](TODO-placeholder-custom-integration)
 
 ## Tell us what you think!
 

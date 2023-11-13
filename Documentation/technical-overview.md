@@ -6,10 +6,9 @@ This document will describe the structure of the "Asset Manager for Blender", ex
 
 - [Technical overview](#technical-overview)
   - [Table of contents](#table-of-contents)
-    - [See also](#see-also)
   - [Add-on structure](#add-on-structure)
   - [Add-on registration](#add-on-registration)
-  - [Python SDK installation](#python-sdk-installation)
+  - [Installing Unity Cloud Python SDK in Blender's python runtime](#installing-unity-cloud-python-sdk-in-blenders-python-runtime)
   - [Interface](#interface)
     - [Add-on menu](#add-on-menu)
     - [Add-on dialog](#add-on-dialog)
@@ -17,11 +16,7 @@ This document will describe the structure of the "Asset Manager for Blender", ex
   - [Asset creation](#asset-creation)
     - [Asset data generation](#asset-data-generation)
     - [Asset data uploading](#asset-data-uploading)
-  
-### See also
-
-- [Asset Manager for Blender](../README.md)
-- [Python SDK documentation](TODO-placeholder)  
+  - [See also](#see-also)
   
 ## Add-on structure
 
@@ -29,12 +24,12 @@ The AM4B is essentially a Python package and a set of Python wheel files, that c
 AM4B contains 4 files:
 - `__init__.py`
 - `uc_wheel_installation.py`
-- `uc_addon.py`
+- `uc_blender_utils.py`
 - `uc_asset_manager.py`
 
 `__init__.py` contains data that is required by Blender in order to properly register and display the add-on.
 `uc_wheel_installation` module installs Unity Cloud Python SDK it in Blender environment.
-`uc_addon` module provides methods to generate data, that can be uploaded to Asset Manager (FBX files, thumbnails).
+`uc_blender_utils` module provides methods to generate data, that can be uploaded to Asset Manager (FBX files, thumbnails).
 `uc_asset_manager` module provides access to Asset Manager through Unity Cloud Python SDK.
 
 ## Add-on registration
@@ -44,7 +39,7 @@ AM4B contains 4 files:
 - `register()` function: initiates installation of Unity Cloud Python SDK in Blender environment, registers Blender operators and displays add-on as Blender scene menu item.
 - `unregister()` function: unregisters operators and hides add-on menu item.
 
-## Python SDK installation
+## Installing Unity Cloud Python SDK in Blender's python runtime
 
 To install Unity Cloud Python SDK, `__init.py__.register()` executes `install_unity_cloud()` function of `uc_wheel_installation` module. The function identifies the current operating system, checks if it is supported by Unity Cloud Python SDK, selects an according Python wheel file in the add-on zip, and installs it using `pip` command.
 
@@ -206,13 +201,13 @@ def refresh_projects(org_id):
 
 ## Asset creation
 
-When user clicks "OK", `ExportToCloudOperator.execute()` function is called. It gathers information from user input, calls `uc_addon_execute` function from `uc_addon` module, and uninitializes `uc_asset_manager` module.
+When user clicks "OK", `ExportToCloudOperator.execute()` function is called. It gathers information from user input, calls `uc_addon_execute` function from `uc_blender_utils` module, and uninitializes `uc_asset_manager` module.
 
 ```
 class ExportToCloudOperator(bpy.types.Operator):
 ...    
     def execute(self, context):
-        from .uc_addon import uc_addon_execute
+        from .uc_blender_utils import uc_addon_execute
         try:
             # prepare tags list
             tags = self.tags_input.split()
@@ -232,7 +227,7 @@ class ExportToCloudOperator(bpy.types.Operator):
 
 ### Asset data generation
 
-The first step of asset creation in AM4B is FBX file and optional thumbnail generation. `uc_addon` module creates a temporary folder on disk, saves the current scene as fbx and thumbnail (if user chose to) in this folder using Python and Blender API. Then the data is sent to `uc_asset_manager` to be uploaded. The temp directory and files will be deleted after the upload:
+The first step of asset creation in AM4B is FBX file and optional thumbnail generation. `uc_blender_utils` module creates a temporary folder on disk, saves the current scene as fbx and thumbnail (if user chose to) in this folder using Python and Blender API. Then the data is sent to `uc_asset_manager` to be uploaded. The temp directory and files will be deleted after the upload:
 
 ```
 def _export_fbx(file_path):
@@ -294,4 +289,10 @@ def export_file_with_preview(path: str, preview_path: str, name: str, descriptio
     ucam.interop.open_browser_to_asset_details(org_id, project_id, asset_id, version)
 ```
 
-See [Python SDK Documentation](TODO-placeholder) for more information about asset management in Python.
+See [Unity Cloud Python SDK Documentation](TODO-placeholder) for more information about asset management in Python.
+
+### See also
+
+- [Asset Manager for Blender](../README.md)
+- [Unity Cloud Python SDK documentation](TODO-placeholder)
+- [How to create your custom integration](TODO-placeholder-custom-integration)

@@ -92,7 +92,7 @@ class ExportToCloudOperator(bpy.types.Operator):
     generate_preview: bpy.props.BoolProperty(name="Generate thumbnail", default=False)
 
     def execute(self, context):
-        from .uc_addon import uc_addon_execute
+        from .uc_blender_utils import uc_addon_execute
         try:
             tags = self.tags_input.split()
             uc_addon_execute(self.org_dropdown, self.project_dropdown, self.name_input, self.description_input,
