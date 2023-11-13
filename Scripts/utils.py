@@ -27,8 +27,9 @@ def get_platform_name(system: str, machine: str) -> str:
 
 
 sdk_version = "0.2.1"
-domain = "https://test.transformation.unity.com"
-url_format = f"{domain}/downloads/pythonsdks/release/{sdk_version}/unity_cloud-{sdk_version}-py3-none-{{0}}.whl"
+protocol = "https://"
+domain = "transformation.unity.com"
+url_format = f"{protocol}{domain}/downloads/pythonsdks/release/{sdk_version}/unity_cloud-{sdk_version}-py3-none-{{0}}.whl"
 operation_systems: dict[OperationSystem, dict[str, str]] = {
     OperationSystem.macos: {
         get_platform_name("darwin", ""):
