@@ -19,6 +19,7 @@ To connect and find support, join the [Unity forum](https://forum.unity.com/foru
     - [Install the add-on](#install-the-add-on)
     - [Publish the 3D view as an asset to Unity Cloud Asset Manager](#publish-the-3d-view-as-an-asset-to-unity-cloud-asset-manager)
   - [Troubleshooting](#troubleshooting)
+    - [CERTIFICATE\_VERIFY\_FAILED when building the add-on on MacOS](#certificate_verify_failed-when-building-the-add-on-on-macos)
     - [Security limitations](#security-limitations)
   - [See also](#see-also)
   - [Tell us what you think!](#tell-us-what-you-think)
@@ -93,6 +94,24 @@ To install the add-on, follow these steps:
 > **Note**: Once the export is complete, you are automatically redirected to the Asset Manager dashboard, so that you can perform additional edit and publish operations from there.
 
 ## Troubleshooting
+
+### CERTIFICATE_VERIFY_FAILED when building the add-on on MacOS
+
+Part of the add-on building process requires to download the Unity Cloud Python SDK dependency.
+Python 3.x does not rely on MacOS' openSSL ; it comes with its own openSSL bundled and doesn't have access on MacOS' root certificates.
+
+To solve this issue, you have two options:
+
+*1) Run an install command shipped with Python 3.x*
+```
+cd /Applications/Python\ 3.x/
+./Install\ Certificates.command
+```
+
+*2) Install the certifi package*
+```
+pip install certifi
+```
 
 ### Security limitations
 
