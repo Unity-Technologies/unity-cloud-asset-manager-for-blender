@@ -20,7 +20,7 @@ This document will describe the structure of the "Asset Manager for Blender", ex
   
 ## Add-on structure
 
-The AM4B is essentially a Python package and a set of Python wheel files, that can be installed into Blender as an add-on.
+The AM4B is essentially a set of Python wheel files, that can be installed into Blender as an add-on.
 AM4B contains 4 files:
 - `__init__.py`
 - `uc_wheel_installation.py`
@@ -289,10 +289,10 @@ def export_file_with_preview(path: str, preview_path: str, name: str, descriptio
     ucam.interop.open_browser_to_asset_details(org_id, project_id, asset_id, version)
 ```
 
-See [Unity Cloud Python SDK Documentation](TODO-placeholder) for more information about asset management in Python.
+See [Unity Cloud Python SDK's Asset management documentation](https://docs.unity3d.com/docs-asset-manager/manual/python-sdk-managing_assets.html) for more information.
 
-### See also
+## See also
 
 - [Asset Manager for Blender](../README.md)
-- [Unity Cloud Python SDK documentation](TODO-placeholder)
-- [How to create your custom integration](TODO-placeholder-custom-integration)
+- [Unity Cloud Python SDK documentation](https://docs.unity3d.com/docs-asset-manager/manual/python-sdk-index.html)
+- [How to create your custom integration](https://docs.unity3d.com/docs-asset-manager/manual/integration-how-to-create-your-own.html)

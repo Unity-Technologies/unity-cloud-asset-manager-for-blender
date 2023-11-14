@@ -31,7 +31,7 @@ To build the AM4 Blender add-on, you need Python 3.x installed on your machine.
 
 To install and use the AM4 Blender add-on, you need:
 - Blender 3.x installed on your machine
-- A (Unity account)[TODO-placeholder] to access Unity Cloud services
+- The right permissions to use Asset Manager. See [Get Started with Asset Manager](https://docs.unity3d.com/docs-asset-manager/manual/get-started.html) for more details.
 
 ### Supported platforms
 
@@ -86,7 +86,7 @@ To install the add-on, follow these steps:
 1. Go back to Blender. You should now see the `Upload FBX to Asset Manager` popup.
 ![popup](Documentation/Images/popup.png)
 
-1. Select a target organization and a project. If you don't have one, you can create them through [organization dashboard](https://id.unity.com/en/organizations) and [project dashboard](https://dashboard.unity3d.com/settings/projects).
+1. Select a target organization and a project. If you don't have one, you can refer to the [add a new project guide](https://docs.unity3d.com/docs-asset-manager/manual/add-project.html).
 2. Enter the asset name, description and tags. As part of the export process, these information will be assigned to the asset.
 3. Select **OK**.
 
@@ -101,8 +101,7 @@ When building the add-on, the `-dw` option does not perform any integrity protec
 ## See also
 
 - [Technical overview of the add-on](Documentation/technical-overview.md)
-- [Unity Cloud Python SDK documentation](TODO-placeholder)
-- [How to create your custom integration](TODO-placeholder-custom-integration)
+- [Unity Cloud Python SDK documentation](https://docs.unity3d.com/docs-asset-manager/manual/python-sdk-index.html)
 
 ## Tell us what you think!
 
