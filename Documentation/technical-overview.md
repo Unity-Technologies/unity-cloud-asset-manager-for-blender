@@ -17,7 +17,7 @@ This document will describe the structure of the "Asset Manager for Blender", ex
     - [Asset data generation](#asset-data-generation)
     - [Asset data uploading](#asset-data-uploading)
   - [See also](#see-also)
-  
+
 ## Add-on structure
 
 The AM4B is essentially a set of Python wheel files, that can be installed into Blender as an add-on.
@@ -58,7 +58,7 @@ These classes and function must be registered in Blender to display add-on when 
 Add-on menu items are defined with `UC_Category` class and `draw_func` function. See [Blender documentation. Menus](https://docs.blender.org/api/current/bpy.types.Menu.html#menu-bpy-struct) for more information about custom menus in Blender.
 `draw_func` function is registered in Blender UI system to display menu structure, described in `UC_Category`, when add-on is enabled.
 
-`UC_Category` class describes the add-on menu and sub-menu items. It provides labels for menu items and define what happens when clicked:
+`UC_Category` class describes the add-on menu and sub-menu items. It provides labels for menu items and define what happens when clicked.
 
 ### Add-on dialog
 
@@ -70,7 +70,7 @@ See [Blender Documentation. Property definitions](https://docs.blender.org/api/c
 
 As mentioned above, access to Asset Manager is provided by `uc_asset_manager` module which uses Unity Cloud Python SDK. The module should be initialized before usage, and uninitialized when it's not in use. The `ExportToCloudOperator` dialog initializes `uc_asset_manager` module and performs login every time when dialog is opened, and uninitializes when dialog is closed.
 
-Also, `ExportToCloudOperator` prepares the list of the available organizations and projects.     
+Also, `ExportToCloudOperator` prepares the list of the available organizations and projects.
 
 ## Asset creation
 
