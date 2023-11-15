@@ -1,0 +1,5 @@
+.idea/
+Source/wheels/
+Scripts/__pycache__/
+Source/__pycache__/
+Dist/
