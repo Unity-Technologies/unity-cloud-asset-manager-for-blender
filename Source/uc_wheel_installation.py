@@ -37,7 +37,3 @@ def install_unity_cloud():
             print("Failed to install unity-cloud package: wheel file for the current platform was not found")
         else:
             print("Failed to install unity-cloud package: More then one wheel file for the current platform was found")
-
-
-if __name__ == '__main__':
-    install_unity_cloud()
