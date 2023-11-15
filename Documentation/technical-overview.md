@@ -86,10 +86,8 @@ See [Blender Documentation. Export scene operators](https://docs.blender.org/api
 
 To upload a new asset to Asset Manager, `uc_asset_manager` creates a new asset in selected project, finds the default dataset and uploads the FBX file to the dataset. If user chose to generate a thumbnail, `uc_asset_manager` looks for "preview" dataset and uploads thumbnail to it. After files are uploaded, the add-on opens created asset in the system browser:
 
-See [Unity Cloud Python SDK's Asset management documentation](https://docs.unity3d.com/docs-asset-manager/manual/python-sdk-managing_assets.html) for more information.
-
 ## See also
 
 - [Asset Manager for Blender](../README.md)
-- [Unity Cloud Python SDK documentation](https://docs.unity3d.com/docs-asset-manager/manual/python-sdk-index.html)
-- [How to create your custom integration](https://docs.unity3d.com/docs-asset-manager/manual/integration-how-to-create-your-own.html)
+- [Unity Cloud Python SDK documentation](https://docs.unity.com/cloud/en-us/asset-manager/python-sdk)
+- [How to create your custom integration](https://docs.unity.com/cloud/en-us/asset-manager/create-own-integration)
