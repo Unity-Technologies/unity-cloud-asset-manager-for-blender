@@ -3,3 +3,17 @@ All notable changes to this package will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [0.1.0] - 2023-11-15
+
+Initial release
+
+Features:
+- Source code of "Asset Manager for Blender" add-on that demonstrates how to:
+    - intall Unity Cloud Python SDK in integration environment;
+    - initialize and unititialize unity-cloud package;
+    - login to Asset Manager using Unity Cloud Python SDK;
+    - create new asset and upload data to it.
+- Python script to create a ready-to-install Blender add-on.
