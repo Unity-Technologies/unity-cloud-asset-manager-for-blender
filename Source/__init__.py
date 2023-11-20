@@ -116,6 +116,7 @@ class ExportToCloudOperator(bpy.types.Operator):
         uc_asset_manager.login()
 
         refresh_orgs()
+        self.org_dropdown = organization_items[0][0]
 
         return context.window_manager.invoke_props_dialog(self)
 
