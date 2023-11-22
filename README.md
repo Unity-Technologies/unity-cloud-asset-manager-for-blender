@@ -32,7 +32,7 @@ To build the AM4 Blender add-on, you need Python 3.x installed on your machine.
 
 To install and use the AM4 Blender add-on, you need:
 - Blender 3.x installed on your machine
-- The right permissions to use Asset Manager.
+- The right permissions to use Asset Manager. See [Get Started with Asset Manager](https://docs.unity.com/cloud/en-us/asset-manager/get-started) for more details.
 
 ### Supported platforms
 
@@ -71,26 +71,30 @@ To install the add-on, follow these steps:
 2. Go to **Edit** > **Preferences**.
 3. Go to the **Add-ons** section.
 4. Select **Install**.
+
 ![installing the add-on](Documentation/Images/install_addon.png)
-1. Select the `UCAM4Blender.zip` file that you built, then select **Install Add-on**.
-2. Check the checkbox to enable the add-on. The `Unity Cloud` tab appears in your 3D view.
+5. Select the `UCAM4Blender.zip` file that you built, then select **Install Add-on**.
+6. Check the checkbox to enable the add-on. The `Unity Cloud` tab appears in your 3D view.
+
 ![enabling the add-on](Documentation/Images/enable_addon.png)
 
 ### Publish the 3D view as an asset to Unity Cloud Asset Manager
 
 1. From your 3D view, go to **Unity Cloud** > **Upload FBX to Asset Manager**.
+
 ![opening the add-on](Documentation/Images/open_addon.png)
 
 > **Note**: If this is the first time you run the add-on, you are automatically redirected to the Unity login page. Make sure you complete the login process, until you are redirected to the following page.
 > ![login complete](Documentation/Images/login_complete.png)
 
-1. Go back to Blender. You should now see the `Upload FBX to Asset Manager` popup.
+2. Go back to Blender. You should now see the `Upload FBX to Asset Manager` popup.
+
 ![popup](Documentation/Images/popup.png)
 
-1. Select a target organization and a project.
-2. Enter the asset name, description and tags. As part of the export process, these information will be assigned to the asset.
-3. Select **OK**.
-
+3. Select a target organization and a project. If you don't have one, you can refer to the [add a new project guide](https://docs.unity.com/cloud/en-us/projects/create-project).
+4. Enter the asset name, description and tags. As part of the export process, this information will be assigned to the asset.
+> **Note**: To add multiple tags, simply separate them with a space in-between.
+5. Select **OK**.
 > **Note**: Once the export is complete, you are automatically redirected to the Asset Manager dashboard, so that you can perform additional edit and publish operations from there.
 
 ## Troubleshooting
