@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Fixed
-- Plugin now recalls previously selected organzation id.
+- Plugin now recalls previously selected organzation and project ids.
 
 ### Changed
 
