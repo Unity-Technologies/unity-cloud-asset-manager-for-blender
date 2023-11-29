@@ -5,7 +5,7 @@ This repository open sources the code of that add-on, so that you can get inspir
 
 > **Note**: This repository does not accept pull requests, review requests, or any other GitHub-hosted issue management requests.
 
-To connect and find support, join the [Unity forum](https://forum.unity.com/forums/unity-cloud.868/)!
+To connect and find support, join the [Help & Support page](https://cloud.unity.com/home/dashboard-support)!
 
 ## Table of contents
 - [Asset Manager for Blender](#asset-manager-for-blender)
@@ -91,7 +91,7 @@ To install the add-on, follow these steps:
 
 ![popup](Documentation/Images/popup.png)
 
-3. Select a target organization and a project. If you don't have one, you can refer to the [add a new project guide](https://docs.unity.com/cloud/en-us/projects/create-project).
+3. Select a target organization and a project. If you don't have one, you can refer to the [create a new project guide](https://docs.unity.com/cloud/en-us/asset-manager/new-asset-manager-project).
 4. Enter the asset name, description and tags. As part of the export process, this information will be assigned to the asset.
 > **Note**: To add multiple tags, simply separate them with a space in-between.
 5. Select **OK**.
@@ -128,4 +128,4 @@ When building the add-on, the `-dw` option does not perform any integrity protec
 
 ## Tell us what you think!
 
-Thank you for taking a look at the project! To help us improve and provide greater value, please consider providing [feedback on our forum](https://forum.unity.com/forums/unity-cloud.868/) about your experience with AM4 Blender. Thank you!
+Thank you for taking a look at the project! To help us improve and provide greater value, please consider providing feedback in our [Help & Support page](https://cloud.unity.com/home/dashboard-support) about your experience with AM4 Blender. Thank you!
