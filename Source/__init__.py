@@ -119,11 +119,9 @@ class ExportToCloudOperator(bpy.types.Operator):
         refresh_orgs()
         global organization_items, previous_org_id, previous_project_id
         if previous_org_id is not None:
-            self.report({'INFO'}, f"Previous organization: {previous_org_id} set")
             self.org_dropdown = previous_org_id
             self.project_dropdown = previous_project_id
         else:
-            self.report({'INFO'}, f"Default organization: {organization_items[0][0]} set")
             self.org_dropdown = organization_items[0][0]
             refresh_projects(organization_items[0][0])
 
