@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Changed
+
+- AM4B is now using Unity Cloud Python SDK 0.2.2
 - Updated a few URLs in the documentation
 
 ## [0.1.0] - 2023-11-15
