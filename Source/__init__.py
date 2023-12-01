@@ -30,7 +30,8 @@ def on_selected_org_changed(self, context):
 
 project_items = []
 organization_items = []
-
+previous_org_id = None
+previous_project_id = None
 
 def refresh_orgs():
     from .uc_asset_manager import get_organizations
@@ -40,11 +41,6 @@ def refresh_orgs():
         items.append((org.id, org.name, f"{org.name}. {org.id}"))
     global organization_items
     organization_items = items
-    org_id = None
-    if len(orgs) > 0:
-        org_id = orgs[0].id
-    refresh_projects(org_id)
-
 
 def refresh_projects(org_id):
     from .uc_asset_manager import get_projects
@@ -91,6 +87,7 @@ class ExportToCloudOperator(bpy.types.Operator):
     
     generate_preview: bpy.props.BoolProperty(name="Generate thumbnail", default=False)
 
+
     def execute(self, context):
         from .uc_blender_utils import uc_addon_execute
         try:
@@ -98,6 +95,10 @@ class ExportToCloudOperator(bpy.types.Operator):
             uc_addon_execute(self.org_dropdown, self.project_dropdown, self.name_input, self.description_input,
                              tags_list=tags, generate_preview=self.generate_preview)
             self.report({'INFO'}, "Asset was uploaded to Unity Cloud Asset Manager")
+
+            global previous_org_id, previous_project_id
+            previous_org_id = self.org_dropdown
+            previous_project_id = self.project_dropdown
         except Exception:
             self.report({'WARNING'}, "Failed to upload asset to Unity Cloud Asset Manager")
             raise
@@ -116,6 +117,13 @@ class ExportToCloudOperator(bpy.types.Operator):
         uc_asset_manager.login()
 
         refresh_orgs()
+        global organization_items, previous_org_id, previous_project_id
+        if previous_org_id is not None:
+            self.org_dropdown = previous_org_id
+            self.project_dropdown = previous_project_id
+        else:
+            self.org_dropdown = organization_items[0][0]
+            refresh_projects(organization_items[0][0])
 
         return context.window_manager.invoke_props_dialog(self)
 
