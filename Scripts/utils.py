@@ -26,7 +26,7 @@ def get_platform_name(system: str, machine: str) -> str:
     return name
 
 
-sdk_version = "0.2.1"
+sdk_version = "0.2.2"
 protocol = "https://"
 domain = "transformation.unity.com"
 url_format = f"{protocol}{domain}/downloads/pythonsdks/release/{sdk_version}/unity_cloud-{sdk_version}-py3-none-{{0}}.whl"
