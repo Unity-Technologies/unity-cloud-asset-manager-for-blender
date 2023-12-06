@@ -9,8 +9,11 @@ This document will describe the structure of the "Asset Manager for Blender", ex
   - [Add-on structure](#add-on-structure)
   - [Add-on registration](#add-on-registration)
   - [Installing Unity Cloud Python SDK in Blender's python runtime](#installing-unity-cloud-python-sdk-in-blenders-python-runtime)
+  - [Initialization of Unity Cloud Python SDK](#initialization-of-unity-cloud-python-sdk)
   - [Interface](#interface)
     - [Add-on menu](#add-on-menu)
+    - [Login](#login)
+    - [Logout](#logout)
     - [Add-on dialog](#add-on-dialog)
   - [Listing organizations and projects](#listing-organizations-and-projects)
   - [Asset creation](#asset-creation)
@@ -43,13 +46,19 @@ AM4B contains 4 files:
 
 To install Unity Cloud Python SDK, `__init.py__.register()` executes `install_unity_cloud()` function of `uc_wheel_installation` module. The function identifies the current operating system, checks if it is supported by Unity Cloud Python SDK, selects an according Python wheel file in the add-on zip, and installs it using `pip` command.
 
+## Initialization of Unity Cloud Python SDK
+
+To initialize Unity Cloud Python SDK, `__init.py__.register()` executes `initialize()` function of `uc_asset_manager` module. The function initializes Unity Cloud Python SDK and configures it to use user login. This operation is performed when add-on was enabled, or when Blender starts.
+To uninitialize, `__init.py__.unregister()` executes `uninitialize()` function of `uc_asset_manager` module. This operation is performed when add-on was disabled, or when Blender is closing.
 
 ## Interface
 
 To define interface of AM4B `__init__.py` implements `UC_Category` and `ExportToCloudOperator` classes, and `draw_func()` function:
 - `draw_func()` function displays add-on menu;
-- `UC_Category` class describes add-on menu structure and defines menu item functionality;
-- `ExportToCloudOperator` class describes add-on
+- `UC_Category` class describes add-on menu structure and defines menu items functionality;
+- `LoginToCloudOperator` class describes functionality of "Login" menu item;
+- `LogoutFromCloudOperator` class describes functionality of "Logout" menu item;
+- `ExportToCloudOperator` class describes functionality of "Upload FBX to Asset Manager" menu item. 
 
 These classes and function must be registered in Blender to display add-on when it is enabled, and unregistered to hide - when disabled.
 
@@ -60,6 +69,14 @@ Add-on menu items are defined with `UC_Category` class and `draw_func` function.
 
 `UC_Category` class describes the add-on menu and sub-menu items. It provides labels for menu items and define what happens when clicked.
 
+### Login
+
+When `Unity Cloud`->`Login` menu is clicked, the add-on will try to perform login to Unity Asset Manager using Unity Cloud Python SDK. This functionality is defined in `LoginToCloudOperator` class. See [Blender Documentation. Operators](https://docs.blender.org/api/current/bpy.ops.html) for more information about custom operators in Blender.  
+
+### Logout
+
+When `Unity Cloud`->`Logout` menu is clicked, the add-on will try to perform logout from Unity Asset Manager using Unity Cloud Python SDK. This functionality is defined in `LogoutFromCloudOperator` class. See [Blender Documentation. Operators](https://docs.blender.org/api/current/bpy.ops.html) for more information about custom operators in Blender.
+
 ### Add-on dialog
 
 When `Unity Cloud`->`Upload FBX to Asset Manager` menu is clicked, the `Upload FBX to Asset Manager` dialog opens. The UI and functionality of the dialog is defined by `ExportToCloudOperator` class. See [Blender Documentation. Operators](https://docs.blender.org/api/current/bpy.ops.html) for more information about custom operators in Blender.
@@ -68,13 +85,12 @@ See [Blender Documentation. Property definitions](https://docs.blender.org/api/c
 
 ## Listing organizations and projects
 
-As mentioned above, access to Asset Manager is provided by `uc_asset_manager` module which uses Unity Cloud Python SDK. The module should be initialized before usage, and uninitialized when it's not in use. The `ExportToCloudOperator` dialog initializes `uc_asset_manager` module and performs login every time when dialog is opened, and uninitializes when dialog is closed.
-
-Also, `ExportToCloudOperator` prepares the list of the available organizations and projects.
+As mentioned above, access to Asset Manager is provided by `uc_asset_manager` module which uses Unity Cloud Python SDK. The module should be initialized before usage, and uninitialized when it's not in use (See [Initialization of Unity Cloud Python SDK](#initialization-of-unity-cloud-python-sdk) for more information about initialization).
+`ExportToCloudOperator` prepares the list of the available organizations and projects.
 
 ## Asset creation
 
-When user clicks "OK", `ExportToCloudOperator.execute()` function is called. It gathers information from user input, calls `uc_addon_execute` function from `uc_blender_utils` module, and uninitializes `uc_asset_manager` module.
+When user clicks "OK", `ExportToCloudOperator.execute()` function is called. It gathers information from user input, and calls `uc_addon_execute` function from `uc_blender_utils` module.
 
 ### Asset data generation
 

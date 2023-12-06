@@ -2,10 +2,19 @@ from typing import List
 import unity_cloud as ucam
 from unity_cloud.models import *
 
+is_initialized = False
+
 
 def initialize():
-    ucam.initialize()
-    ucam.identity.user_login.use()
+    global is_initialized
+    if not is_initialized:
+        ucam.initialize()
+        ucam.identity.user_login.use()
+        is_initialized = True
+
+
+def is_logged_in():
+    return ucam.identity.user_login.get_authentication_state() == ucam.identity.user_login.Authentication_State.LOGGED_IN
 
 
 def login():
@@ -46,4 +55,7 @@ def get_projects(org_id: str) -> List[Project]:
 
 
 def uninitialize():
-    ucam.uninitialize()
+    global is_initialized
+    if is_initialized:
+        ucam.uninitialize()
+        is_initialized = False

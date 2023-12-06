@@ -6,17 +6,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Added `Login` and `Logout` buttons to `Unity Cloud` menu.
+
 ### Fixed
-- Plugin now recalls previously selected organzation and project ids.
+- Plugin now recalls previously selected organization and project ids.
 
 ### Changed
-
-- Updated a few URLs in the documentation
+- Updated a few URLs in the documentation.
+- `unity-cloud` is initialized/uninitialized on add-on registration/unregistration.
 
 ## [0.1.1] - 2023-11-30
 
 ### Changed
-
 - AM4B is now using Unity Cloud Python SDK 0.2.2
 
 ## [0.1.0] - 2023-11-15

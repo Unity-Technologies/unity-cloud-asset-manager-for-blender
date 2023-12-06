@@ -17,7 +17,9 @@ To connect and find support, join the [Help & Support page](https://cloud.unity.
   - [How do I...?](#how-do-i)
     - [Build the add-on](#build-the-add-on)
     - [Install the add-on](#install-the-add-on)
+    - [Login to Unity Cloud Asset Manager](#login-to-unity-cloud-asset-manager)
     - [Publish the 3D view as an asset to Unity Cloud Asset Manager](#publish-the-3d-view-as-an-asset-to-unity-cloud-asset-manager)
+    - [Logout from Unity Cloud Asset Manager](#logout-from-unity-cloud-asset-manager)
   - [Troubleshooting](#troubleshooting)
     - [CERTIFICATE\_VERIFY\_FAILED when building the add-on on MacOS](#certificate_verify_failed-when-building-the-add-on-on-macos)
     - [Security limitations](#security-limitations)
@@ -78,24 +80,45 @@ To install the add-on, follow these steps:
 
 ![enabling the add-on](Documentation/Images/enable_addon.png)
 
+### Login to Unity Cloud Asset Manager
+
+Follow these steps if is the first time you run the add-on or you have previously logged out (See [Logout from Unity Cloud Asset Manager](#logout-from-unity-cloud-asset-manager) for information about logout). Otherwise, add-on will automatically log in using the previous session.
+1. From your 3D view, go to **Unity Cloud** > **Login**.
+
+![login-to-am](Documentation/Images/login.png)
+
+> **Note**: You will be automatically redirected to the Unity login page. Make sure you complete the login process, until you are redirected to the following page.
+> ![login complete](Documentation/Images/login_complete.png)
+
+2. Go back to Blender.
+
 ### Publish the 3D view as an asset to Unity Cloud Asset Manager
 
-1. From your 3D view, go to **Unity Cloud** > **Upload FBX to Asset Manager**.
+1. Ensure you are logged in to Asset Manager (See [Login to Unity Cloud Asset Manager](#login-to-unity-cloud-asset-manager) for more information about login).
+2. From your 3D view, go to **Unity Cloud** > **Upload FBX to Asset Manager**.
 
 ![opening the add-on](Documentation/Images/open_addon.png)
 
-> **Note**: If this is the first time you run the add-on, you are automatically redirected to the Unity login page. Make sure you complete the login process, until you are redirected to the following page.
-> ![login complete](Documentation/Images/login_complete.png)
-
-2. Go back to Blender. You should now see the `Upload FBX to Asset Manager` popup.
+3. You should now see the `Upload FBX to Asset Manager` popup.
 
 ![popup](Documentation/Images/popup.png)
 
-3. Select a target organization and a project. If you don't have one, you can refer to the [create a new project guide](https://docs.unity.com/cloud/en-us/asset-manager/new-asset-manager-project).
-4. Enter the asset name, description and tags. As part of the export process, this information will be assigned to the asset.
+4. Select a target organization and a project. If you don't have one, you can refer to the [create a new project guide](https://docs.unity.com/cloud/en-us/asset-manager/new-asset-manager-project).
+5. Enter the asset name, description and tags. As part of the export process, this information will be assigned to the asset.
 > **Note**: To add multiple tags, simply separate them with a space in-between.
-5. Select **OK**.
+6. Select **OK**.
 > **Note**: Once the export is complete, you are automatically redirected to the Asset Manager dashboard, so that you can perform additional edit and publish operations from there.
+
+### Logout from Unity Cloud Asset Manager
+
+1. From your 3D view, go to **Unity Cloud** > **Logout**. Note, this option is only available when you are logged in.
+
+![logout-from-am](Documentation/Images/logout.png)
+
+> **Note**: Once logout completes, you will be automatically redirected to the following page.
+> ![logout complete](Documentation/Images/logout_complete.png)
+
+2. Go back to Blender.
 
 ## Troubleshooting
 

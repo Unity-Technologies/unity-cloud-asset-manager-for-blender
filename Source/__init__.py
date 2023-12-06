@@ -14,6 +14,12 @@ bl_info = {
 uc_dialog_op_name = "uc_addon.addon_dialog"
 upload_fbx_lbl = "Upload FBX to Asset Manager"
 
+uc_login_op_name = "uc_addon.addon_login"
+login_lbl = "Login"
+
+uc_logout_op_name = "uc_addon.addon_logout"
+logout_lbl = "Logout"
+
 
 class UC_Category(Menu):
     bl_idname = "VIEW3D_MT_UC_category"
@@ -21,7 +27,39 @@ class UC_Category(Menu):
 
     def draw(self, context):
         layout = self.layout
-        layout.operator(uc_dialog_op_name, text=upload_fbx_lbl)
+        from . import uc_asset_manager
+
+        if not uc_asset_manager.is_initialized:
+            uc_asset_manager.initialize()
+
+        if uc_asset_manager.is_logged_in():
+            layout.operator(uc_dialog_op_name, text=upload_fbx_lbl)
+            layout.operator(uc_logout_op_name, text=logout_lbl)
+        else:
+            layout.operator(uc_login_op_name, text=login_lbl)
+
+
+class LoginToCloudOperator(bpy.types.Operator):
+    bl_idname = uc_login_op_name
+    bl_label = login_lbl
+    bl_description = "Login to Asset Manager"
+
+    def execute(self, context):
+        from . import uc_asset_manager
+        uc_asset_manager.login()
+        return {'FINISHED'}
+
+
+class LogoutFromCloudOperator(bpy.types.Operator):
+    bl_idname = uc_logout_op_name
+    bl_label = logout_lbl
+    bl_description = "Logout from Asset Manager"
+
+    def execute(self, context):
+        from . import uc_asset_manager
+        uc_asset_manager.logout()
+        uc_asset_manager.uninitialize()
+        return {'FINISHED'}
 
 
 def on_selected_org_changed(self, context):
@@ -33,8 +71,9 @@ organization_items = []
 previous_org_id = None
 previous_project_id = None
 
+
 def refresh_orgs():
-    from .uc_asset_manager import get_organizations
+    from . import uc_asset_manager
     orgs = uc_asset_manager.get_organizations()
     items = list()
     for org in orgs:
@@ -42,8 +81,9 @@ def refresh_orgs():
     global organization_items
     organization_items = items
 
+
 def refresh_projects(org_id):
-    from .uc_asset_manager import get_projects
+    from . import uc_asset_manager
     if org_id is not None:
         projects = uc_asset_manager.get_projects(org_id)
         items = list()
@@ -62,9 +102,11 @@ def get_organization(self, context):
 def get_projects(self, context):
     return project_items
 
+
 class ExportToCloudOperator(bpy.types.Operator):
     bl_idname = uc_dialog_op_name
     bl_label = upload_fbx_lbl
+    bl_description = "Create a new asset and upload current scene as *.fbx to Asset Manager"
 
     org_dropdown: bpy.props.EnumProperty(
             items=get_organization,
@@ -102,20 +144,12 @@ class ExportToCloudOperator(bpy.types.Operator):
         except Exception:
             self.report({'WARNING'}, "Failed to upload asset to Unity Cloud Asset Manager")
             raise
-        finally:
-            from .uc_asset_manager import uninitialize
-            uc_asset_manager.uninitialize()
         return {'FINISHED'}
 
-    def cancel(self, context):
-        from .uc_asset_manager import uninitialize
-        uc_asset_manager.uninitialize()
-
     def invoke(self, context, event):
-        from .uc_asset_manager import initialize, login
-        uc_asset_manager.initialize()
-        uc_asset_manager.login()
-
+        from . import uc_asset_manager
+        if not (uc_asset_manager.is_initialized and uc_asset_manager.is_logged_in()):
+            raise Exception("Invalid operation: uc_asset_manager must be initialized and logged in.")
         refresh_orgs()
         global organization_items, previous_org_id, previous_project_id
         if previous_org_id is not None:
@@ -128,7 +162,7 @@ class ExportToCloudOperator(bpy.types.Operator):
         return context.window_manager.invoke_props_dialog(self)
 
 
-classes = (UC_Category, ExportToCloudOperator)
+classes = (UC_Category, ExportToCloudOperator, LoginToCloudOperator, LogoutFromCloudOperator)
 
 
 def draw_func(self, context):
@@ -141,8 +175,14 @@ def register():
         bpy.utils.register_class(cls)
     bpy.types.VIEW3D_MT_editor_menus.append(draw_func)
 
+    from . import uc_asset_manager
+    uc_asset_manager.initialize()
+
 
 def unregister():
+    from . import uc_asset_manager
+    uc_asset_manager.uninitialize()
+
     for cls in classes:
         bpy.utils.unregister_class(cls)
     bpy.types.VIEW3D_MT_editor_menus.remove(draw_func)
