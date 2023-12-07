@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Added `Login` and `Logout` buttons to `Unity Cloud` menu.
+- Added functionality to select and update an asset in current project.
 
 ### Fixed
 - Plugin now recalls previously selected organization and project ids.

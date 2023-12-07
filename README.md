@@ -18,7 +18,8 @@ To connect and find support, join the [Help & Support page](https://cloud.unity.
     - [Build the add-on](#build-the-add-on)
     - [Install the add-on](#install-the-add-on)
     - [Login to Unity Cloud Asset Manager](#login-to-unity-cloud-asset-manager)
-    - [Publish the 3D view as an asset to Unity Cloud Asset Manager](#publish-the-3d-view-as-an-asset-to-unity-cloud-asset-manager)
+    - [Upload the 3D view as a new asset to Unity Cloud Asset Manager](#upload-the-3d-view-as-a-new-asset-to-unity-cloud-asset-manager)
+    - [Upload the 3D view to an existing asset in Unity Cloud Asset Manager](#upload-the-3d-view-to-an-existing-asset-in-unity-cloud-asset-manager)
     - [Logout from Unity Cloud Asset Manager](#logout-from-unity-cloud-asset-manager)
   - [Troubleshooting](#troubleshooting)
     - [CERTIFICATE\_VERIFY\_FAILED when building the add-on on MacOS](#certificate_verify_failed-when-building-the-add-on-on-macos)
@@ -92,7 +93,7 @@ Follow these steps if is the first time you run the add-on or you have previousl
 
 2. Go back to Blender.
 
-### Publish the 3D view as an asset to Unity Cloud Asset Manager
+### Upload the 3D view as a new asset to Unity Cloud Asset Manager
 
 1. Ensure you are logged in to Asset Manager (See [Login to Unity Cloud Asset Manager](#login-to-unity-cloud-asset-manager) for more information about login).
 2. From your 3D view, go to **Unity Cloud** > **Upload FBX to Asset Manager**.
@@ -104,10 +105,35 @@ Follow these steps if is the first time you run the add-on or you have previousl
 ![popup](Documentation/Images/popup.png)
 
 4. Select a target organization and a project. If you don't have one, you can refer to the [create a new project guide](https://docs.unity.com/cloud/en-us/asset-manager/new-asset-manager-project).
-5. Enter the asset name, description and tags. As part of the export process, this information will be assigned to the asset.
+5. Ensure `<Create new asset>` option is selected in `Asset` dropdown. 
+6. Enter the new asset name, description and tags. As part of the upload process, this information will be assigned to the asset.
 > **Note**: To add multiple tags, simply separate them with a space in-between.
-6. Select **OK**.
-> **Note**: Once the export is complete, you are automatically redirected to the Asset Manager dashboard, so that you can perform additional edit and publish operations from there.
+7. Check `Generate thumbnail` option to create a thumbnail for the asset. Add-on will automatically generate a PNG file and upload it as the asset preview.  
+8. Select **OK**.
+> **Note**: Once the uploading is complete, you are automatically redirected to the Asset Manager dashboard, so that you can perform additional edit and publish operations from there.
+
+### Upload the 3D view to an existing asset in Unity Cloud Asset Manager
+
+1. Ensure you are logged in to Asset Manager (See [Login to Unity Cloud Asset Manager](#login-to-unity-cloud-asset-manager) for more information about login)
+2. From your 3D view, go to **Unity Cloud** > **Upload FBX to Asset Manager**.
+
+![opening the add-on](Documentation/Images/open_addon.png)
+
+3. You should now see the `Upload FBX to Asset Manager` popup.
+
+![popup](Documentation/Images/popup.png)
+
+4. Select a target organization and a project. If you don't have one, you can refer to the [create a new project guide](https://docs.unity.com/cloud/en-us/asset-manager/new-asset-manager-project).
+5. In `Asset` dropdown select the asset you want to update. Add-on will fetch asset name, description and tags.
+> **Note**: During uploading, any existing files in the asset will be removed.
+
+![popup](Documentation/Images/popup_update.png)
+
+6. Change the asset name, description and tags, if needed. As part of the upload process, this information will be assigned to the asset.
+> **Note**: To add multiple tags, simply separate them with a space in-between.
+7. Check `Generate thumbnail` option to create a thumbnail for the asset. Add-on will automatically generate a PNG file and upload it as the asset preview.
+8. Select **OK**.
+> **Note**: Once the uploading is complete, you are automatically redirected to the Asset Manager dashboard, so that you can perform additional edit and publish operations from there.
 
 ### Logout from Unity Cloud Asset Manager
 
