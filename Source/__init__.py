@@ -56,9 +56,15 @@ class LogoutFromCloudOperator(bpy.types.Operator):
     bl_description = "Logout from Asset Manager"
 
     def execute(self, context):
-        from . import uc_asset_manager
-        uc_asset_manager.logout()
-        uc_asset_manager.uninitialize()
+        try:
+            from . import uc_asset_manager
+            uc_asset_manager.logout()
+            uc_asset_manager.uninitialize()
+        finally:
+            global previous_org_id, previous_project_id, previous_asset_idx
+            previous_org_id = None
+            previous_project_id = None
+            previous_asset_idx = None
         return {'FINISHED'}
 
 
@@ -96,7 +102,6 @@ def refresh_orgs(self, context):
 
 
 def refresh_projects(self, context, org_id):
-    project_id = None
     from . import uc_asset_manager
     global project_items
 
@@ -157,6 +162,10 @@ def on_asset_changed(self, context):
             for tag in asset.tags:
                 tags += f'{tag} '
         self.tags_input = tags
+
+
+def contains_item(lst, item):
+    return any(triple[0] == item for triple in lst)
 
 
 class UploadToCloudOperator(bpy.types.Operator):
@@ -227,10 +236,14 @@ class UploadToCloudOperator(bpy.types.Operator):
             raise Exception("Invalid operation: uc_asset_manager must be initialized and logged in.")
         refresh_orgs(self, context)
         global organization_items, previous_org_id, previous_project_id
-        if previous_org_id is not None:
+        if previous_org_id is not None and contains_item(organization_items, previous_org_id):
             self.org_dropdown = previous_org_id
-            self.project_dropdown = previous_project_id
-            self.asset_dropdown = previous_asset_idx
+
+            if contains_item(project_items, previous_project_id):
+                self.project_dropdown = previous_project_id
+
+                if contains_item(assets_items, previous_asset_idx):
+                    self.asset_dropdown = previous_asset_idx
         else:
             self.org_dropdown = organization_items[0][0]
 

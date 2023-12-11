@@ -13,10 +13,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Plugin now recalls previously selected organization and project ids.
+- Plugin recalls previously selected organization, project and asset ids only if they are available.
 
 ### Changed
 - Updated a few URLs in the documentation.
 - `unity-cloud` is initialized/uninitialized on add-on registration/unregistration.
+- Previously selected organization, project and asset ids are reset after logging out.
 
 ## [0.1.1] - 2023-11-30
 
