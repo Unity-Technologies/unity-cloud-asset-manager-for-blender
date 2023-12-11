@@ -194,11 +194,13 @@ class UploadToCloudOperator(bpy.types.Operator):
 
     def execute(self, context):
         try:
+            name = self.name_input.strip()
             tags = self.tags_input.split()
             from . import uc_blender_utils
+
             if self.asset_dropdown == self.CREATE_ASSET_VALUE:
                 new_asset_id = uc_blender_utils.uc_create_asset(self.org_dropdown, self.project_dropdown,
-                                                                self.name_input, self.description_input,
+                                                                name, self.description_input,
                                                                 tags, self.generate_preview)
                 self.report({'INFO'}, "Asset was created and uploaded to Unity Cloud Asset Manager")
                 refresh_assets(self, context, self.org_dropdown, self.project_dropdown)
@@ -206,7 +208,7 @@ class UploadToCloudOperator(bpy.types.Operator):
             else:
                 uc_blender_utils.uc_update_asset(self.org_dropdown, self.project_dropdown,
                                                  assets[self.asset_dropdown].id,
-                                                 self.name_input, self.description_input, tags,
+                                                 name, self.description_input, tags,
                                                  self.generate_preview)
                 self.report({'INFO'}, "Asset was updated in Unity Cloud Asset Manager")
         except Exception:
