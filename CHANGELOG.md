@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Plugin now recalls previously selected organization and project ids.
 - Plugin recalls previously selected organization, project and asset ids only if they are available.
+- Removed reference to `InteropException`.
 
 ### Changed
 - Updated a few URLs in the documentation.
