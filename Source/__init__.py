@@ -117,7 +117,6 @@ def refresh_projects(self, context, org_id):
 
 def refresh_assets(self, context, org_id, project_id):
     from . import uc_asset_manager
-    from unity_cloud.models.interop_exception import InteropException
     global assets_items, assets
 
     items = list()
@@ -130,7 +129,7 @@ def refresh_assets(self, context, org_id, project_id):
             for asset in assets_array:
                 items.append((asset.id, asset.name, f"{asset.name}. {asset.id}"))
                 assets[asset.id] = asset
-        except InteropException:
+        except Exception:
             print(f"Failed to get list from the project {org_id}/{project_id}")
     assets_items = items
 
