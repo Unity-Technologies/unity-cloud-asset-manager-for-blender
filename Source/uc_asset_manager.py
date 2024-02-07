@@ -27,8 +27,8 @@ def logout():
         ucam.identity.user_login.logout(True)
 
 
-def __upload_file_to_dataset(org_id: str, project_id: str, asset_id: str, version: str, dataset_id: str, path: str):
-    upload_asset = AssetFileUploadInformation(org_id, project_id, asset_id, version, dataset_id, path)
+def __upload_file_to_dataset(org_id: str, project_id: str, asset_id: str, version: str, dataset_id: str, upload_file_path: str, cloud_file_path: str):
+    upload_asset = AssetFileUploadInformation(org_id, project_id, asset_id, version, dataset_id, upload_file_path, cloud_file_path)
     ucam.assets.upload_file(upload_asset)
 
 
@@ -42,9 +42,9 @@ def create_asset(path: str, preview_path: str, name: str, description: str,
     asset_id = ucam.assets.create_asset(asset_creation, org_id, project_id)
     version = '1'
     datasets = ucam.assets.get_dataset_list(org_id, project_id, asset_id, version)
-    __upload_file_to_dataset(org_id, project_id, asset_id, version, datasets[0].id, path)
+    __upload_file_to_dataset(org_id, project_id, asset_id, version, datasets[0].id, path, name)
     if preview_path is not None:
-        __upload_file_to_dataset(org_id, project_id, asset_id, version, datasets[1].id, preview_path)
+        __upload_file_to_dataset(org_id, project_id, asset_id, version, datasets[1].id, preview_path, name + " Preview")
     ucam.interop.open_browser_to_asset_details(org_id, project_id, asset_id, version)
     return asset_id
 
