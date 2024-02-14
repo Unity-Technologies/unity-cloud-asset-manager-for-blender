@@ -64,9 +64,9 @@ def update_asset(path: str, preview_path: str, name: str, description: str,
             for file in file_list:
                 ucam.assets.remove_file(org_id, project_id, asset_id, version, asset_dataset.id, file.path)
 
-        __upload_file_to_dataset(org_id, project_id, asset_id, version, datasets[0].id, path)
+        __upload_file_to_dataset(org_id, project_id, asset_id, version, datasets[0].id, path, name)
         if preview_path is not None:
-            __upload_file_to_dataset(org_id, project_id, asset_id, version, datasets[1].id, preview_path)
+            __upload_file_to_dataset(org_id, project_id, asset_id, version, datasets[1].id, preview_path, name + " Preview")
 
     ucam.interop.open_browser_to_asset_details(org_id, project_id, asset_id, version)
 
