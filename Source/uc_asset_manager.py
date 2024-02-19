@@ -28,15 +28,15 @@ def logout():
 
 
 def __upload_file_to_dataset(org_id: str, project_id: str, asset_id: str, version: str, dataset_id: str, upload_file_path: str, cloud_file_path: str):
-    upload_asset = AssetFileUploadInformation(org_id, project_id, asset_id, version, dataset_id, upload_file_path, cloud_file_path)
+    upload_asset = FileUploadInformation(org_id, project_id, asset_id, version, dataset_id, upload_file_path, cloud_file_path)
     ucam.assets.upload_file(upload_asset)
 
 
 def create_asset(path: str, preview_path: str, name: str, description: str,
                  tags_list: List[str], org_id: str, project_id: str) -> str:
     asset_creation = AssetCreation(name,
+                                   ucam.assets.AssetType.MODEL_3D,
                                    description,
-                                   ucam.assets.asset_type.MODEL_3D,
                                    tags_list)
 
     asset_id = ucam.assets.create_asset(asset_creation, org_id, project_id)
@@ -53,8 +53,8 @@ def update_asset(path: str, preview_path: str, name: str, description: str,
                  tags_list: List[str], org_id: str, project_id: str, asset_id: str):
     version = '1'
     asset_update = AssetUpdate(name,
+                               ucam.assets.AssetType.MODEL_3D,
                                description,
-                               ucam.assets.asset_type.MODEL_3D,
                                tags_list)
     if ucam.assets.update_asset(asset_update, org_id, project_id, asset_id, version):
         datasets = ucam.assets.get_dataset_list(org_id, project_id, asset_id, version)
