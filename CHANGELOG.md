@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Updated a few URLs in the documentation.
 - `unity-cloud` is initialized/uninitialized on add-on registration/unregistration.
 - Previously selected organization, project and asset ids are reset after logging out.
+- AM4B is now using Unity Cloud Python SDK 0.5.0
 
 ## [0.1.1] - 2023-11-30
 
