@@ -198,7 +198,6 @@ class UploadToCloudOperator(bpy.types.Operator):
     description_input: bpy.props.StringProperty(name="Asset description:", default="")
     tags_input: bpy.props.StringProperty(name="Tags:", description="Asset tags separated by spaces: tag1 tag2",
                                          default="")
-    generate_preview: bpy.props.BoolProperty(name="Generate thumbnail", default=False)
 
     def execute(self, context):
         try:
@@ -208,16 +207,14 @@ class UploadToCloudOperator(bpy.types.Operator):
 
             if self.asset_dropdown == self.CREATE_ASSET_VALUE:
                 new_asset_id = uc_blender_utils.uc_create_asset(self.org_dropdown, self.project_dropdown,
-                                                                name, self.description_input,
-                                                                tags, self.generate_preview)
+                                                                name, self.description_input, tags)
                 self.report({'INFO'}, "Asset was created and uploaded to Unity Cloud Asset Manager")
                 refresh_assets(self, context, self.org_dropdown, self.project_dropdown)
                 self.asset_dropdown = new_asset_id
             else:
                 uc_blender_utils.uc_update_asset(self.org_dropdown, self.project_dropdown,
                                                  assets[self.asset_dropdown].id,
-                                                 name, self.description_input, tags,
-                                                 self.generate_preview)
+                                                 name, self.description_input, tags)
                 self.report({'INFO'}, "Asset was updated in Unity Cloud Asset Manager")
         except Exception:
             self.report({'WARNING'}, "Failed to upload asset to Unity Cloud Asset Manager")
