@@ -1,5 +1,7 @@
-from typing import List
 import unity_cloud as ucam
+import pathlib
+
+from typing import List
 from unity_cloud.models import *
 
 is_initialized = False
@@ -32,19 +34,20 @@ def __upload_file_to_dataset(org_id: str, project_id: str, asset_id: str, versio
     ucam.assets.upload_file(upload_asset)
 
 
-def create_asset(path: str, preview_path: str, name: str, description: str,
-                 tags_list: List[str], org_id: str, project_id: str) -> str:
-    asset_creation = AssetCreation(name,
-                                   ucam.assets.AssetType.MODEL_3D,
-                                   description,
-                                   tags_list)
+def create_asset(path: str, preview_path: str, name: str, description: str, tags_list: List[str], org_id: str,
+                 project_id: str) -> str:
+    asset_creation = AssetCreation(name, ucam.assets.AssetType.MODEL_3D, description, tags_list)
 
     asset_id = ucam.assets.create_asset(asset_creation, org_id, project_id)
     version = '1'
     datasets = ucam.assets.get_dataset_list(org_id, project_id, asset_id, version)
-    __upload_file_to_dataset(org_id, project_id, asset_id, version, datasets[0].id, path, name)
+    extension = pathlib.Path(path).suffix
+
+    __upload_file_to_dataset(org_id, project_id, asset_id, version, datasets[0].id, path, name + extension)
     if preview_path is not None:
-        __upload_file_to_dataset(org_id, project_id, asset_id, version, datasets[1].id, preview_path, name + " Preview")
+        preview_extension = pathlib.Path(preview_path).suffix
+        __upload_file_to_dataset(org_id, project_id, asset_id, version, datasets[1].id, preview_path,
+                                 f"{name}Preview{preview_extension}")
     ucam.interop.open_browser_to_asset_details(org_id, project_id, asset_id, version)
     return asset_id
 
