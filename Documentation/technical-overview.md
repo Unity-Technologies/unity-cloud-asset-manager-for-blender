@@ -32,7 +32,7 @@ AM4B contains 4 files:
 
 `__init__.py` contains data that is required by Blender in order to properly register and display the add-on.
 `uc_wheel_installation` module installs Unity Cloud Python SDK it in Blender environment.
-`uc_blender_utils` module provides methods to generate data, that can be uploaded to Asset Manager (FBX files, thumbnails).
+`uc_blender_utils` module provides methods to generate data, that can be uploaded to Asset Manager (FBX files).
 `uc_asset_manager` module provides access to Asset Manager through Unity Cloud Python SDK.
 
 ## Add-on registration
@@ -94,7 +94,7 @@ When user clicks "OK", `UploadToCloudOperator.execute()` function is called. It 
 
 ### Asset data generation
 
-The first step of uploading to AM4B is FBX file and optional thumbnail generation. `uc_blender_utils` module creates a temporary folder on disk, saves the current scene as fbx and thumbnail (if user chose to) in this folder using Python and Blender API. Then the data is sent to `uc_asset_manager` to be uploaded. The temp directory and files will be deleted after the upload:
+The first step of uploading to AM4B is FBX file. `uc_blender_utils` module creates a temporary folder on disk, saves the current scene as fbx in this folder using Python and Blender API. Then the data is sent to `uc_asset_manager` to be uploaded. The temp directory and files will be deleted after the upload:
 
 See [Blender Documentation. Export scene operators](https://docs.blender.org/api/current/bpy.ops.export_scene.html#module-bpy.ops.export_scene) and [Render Operators](https://docs.blender.org/api/current/bpy.ops.render.html#module-bpy.ops.render) for information about exporting scene and creating images in Blender.
 
@@ -108,7 +108,7 @@ If user chose to update an existing asset, `uc_asset_manager.update_asset` will 
 
 ### Asset data uploading
 
-After an asset is prepared for uploading new data, `uc_asset_manager` finds the default dataset and uploads the FBX file. If user chose to generate a thumbnail, `uc_asset_manager` looks for "preview" dataset and uploads thumbnail to it. After files are uploaded, the add-on opens the asset in the system browser using Unity Cloud Python SDK `interop` module.
+After an asset is prepared for uploading new data, `uc_asset_manager` finds the default dataset and uploads the FBX file. After files are uploaded, the add-on opens the asset in the system browser using Unity Cloud Python SDK `interop` module.
 
 ## See also
 
