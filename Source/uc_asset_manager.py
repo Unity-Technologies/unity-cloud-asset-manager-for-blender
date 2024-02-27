@@ -34,7 +34,7 @@ def __upload_file_to_dataset(org_id: str, project_id: str, asset_id: str, versio
     ucam.assets.upload_file(upload_asset)
 
 
-def create_asset(path: str, preview_path: str, name: str, description: str, tags_list: List[str], org_id: str,
+def create_asset(path: str, name: str, description: str, tags_list: List[str], org_id: str,
                  project_id: str) -> str:
     asset_creation = AssetCreation(name, ucam.assets.AssetType.MODEL_3D, description, tags_list)
 
@@ -44,15 +44,11 @@ def create_asset(path: str, preview_path: str, name: str, description: str, tags
     extension = pathlib.Path(path).suffix
 
     __upload_file_to_dataset(org_id, project_id, asset_id, version, datasets[0].id, path, name + extension)
-    if preview_path is not None:
-        preview_extension = pathlib.Path(preview_path).suffix
-        __upload_file_to_dataset(org_id, project_id, asset_id, version, datasets[1].id, preview_path,
-                                 f"{name}Preview{preview_extension}")
     ucam.interop.open_browser_to_asset_details(org_id, project_id, asset_id, version)
     return asset_id
 
 
-def update_asset(path: str, preview_path: str, name: str, description: str,
+def update_asset(path: str, name: str, description: str,
                  tags_list: List[str], org_id: str, project_id: str, asset_id: str):
     version = '1'
     asset_update = AssetUpdate(name,
@@ -60,20 +56,14 @@ def update_asset(path: str, preview_path: str, name: str, description: str,
                                description,
                                tags_list)
     if ucam.assets.update_asset(asset_update, org_id, project_id, asset_id, version):
-        datasets = ucam.assets.get_dataset_list(org_id, project_id, asset_id, version)
+        asset_dataset = ucam.assets.get_dataset_list(org_id, project_id, asset_id, version)[0]
 
-        for asset_dataset in datasets:
-            file_list = ucam.assets.get_file_list(org_id, project_id, asset_id, version, asset_dataset.id)
-            for file in file_list:
-                ucam.assets.remove_file(org_id, project_id, asset_id, version, asset_dataset.id, file.path)
+        file_list = ucam.assets.get_file_list(org_id, project_id, asset_id, version, asset_dataset.id)
+        for file in file_list:
+            ucam.assets.remove_file(org_id, project_id, asset_id, version, asset_dataset.id, file.path)
 
         extension = pathlib.Path(path).suffix
-        __upload_file_to_dataset(org_id, project_id, asset_id, version, datasets[0].id, path, name + extension)
-
-        if preview_path is not None:
-            preview_extension = pathlib.Path(preview_path).suffix
-            __upload_file_to_dataset(org_id, project_id, asset_id, version, datasets[1].id, preview_path,
-                                     f"{name}Preview{preview_extension}")
+        __upload_file_to_dataset(org_id, project_id, asset_id, version, asset_dataset.id, path, name + extension)
 
     ucam.interop.open_browser_to_asset_details(org_id, project_id, asset_id, version)
 
