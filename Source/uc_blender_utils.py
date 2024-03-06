@@ -5,8 +5,9 @@ import shutil
 from typing import List
 
 
-def _export_fbx(file_path):
-    bpy.ops.export_scene.fbx(filepath=file_path)
+def _export_fbx(file_path, embed_textures: bool):
+    path_mode = 'COPY' if embed_textures else 'AUTO'
+    bpy.ops.export_scene.fbx(filepath=file_path, path_mode=path_mode, embed_textures=embed_textures)
 
 
 def _get_preview_image(file_path):
@@ -17,12 +18,13 @@ def _get_preview_image(file_path):
     bpy.ops.render.render(write_still=True)
 
 
-def uc_create_asset(org_id: str, project_id: str, name: str, description: str, tags_list: List[str]) -> str:
+def uc_create_asset(org_id: str, project_id: str, name: str, description: str, tags_list: List[str],
+                    embed_textures: bool) -> str:
     temp_dir = tempfile.mkdtemp()
 
     temp_fbx_file = os.path.join(temp_dir, f"{name}.fbx")
     try:
-        _export_fbx(temp_fbx_file)
+        _export_fbx(temp_fbx_file, embed_textures)
 
         from .uc_asset_manager import create_asset
         return create_asset(temp_fbx_file, name, description, tags_list, org_id, project_id)
@@ -30,11 +32,12 @@ def uc_create_asset(org_id: str, project_id: str, name: str, description: str, t
         shutil.rmtree(temp_dir)
 
 
-def uc_update_asset(org_id: str, project_id: str, asset_id: str, name: str, description: str, tags_list: List[str]):
+def uc_update_asset(org_id: str, project_id: str, asset_id: str, name: str, description: str, tags_list: List[str],
+                    embed_textures: bool):
     temp_dir = tempfile.mkdtemp()
     temp_fbx_file = os.path.join(temp_dir, f"{name}.fbx")
     try:
-        _export_fbx(temp_fbx_file)
+        _export_fbx(temp_fbx_file, embed_textures)
 
         from . import uc_asset_manager
         uc_asset_manager.update_asset(temp_fbx_file, name, description, tags_list, org_id, project_id, asset_id)
