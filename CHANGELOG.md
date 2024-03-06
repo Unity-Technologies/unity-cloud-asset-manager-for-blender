@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added `Login` and `Logout` buttons to `Unity Cloud` menu.
 - Added functionality to select and update an asset in current project.
 - Leading and trailing spaces in asset name input string are now removed to comply with validation rules.
+- Added `embed textures` checkbox to `Unity Cloud` menu
 
 ### Fixed
 - Plugin now recalls previously selected organization and project ids.
