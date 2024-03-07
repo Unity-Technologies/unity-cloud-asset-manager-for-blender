@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added functionality to select and update an asset in current project.
 - Leading and trailing spaces in asset name input string are now removed to comply with validation rules.
 - Added `embed textures` checkbox to `Unity Cloud` menu
+- Added a preview re-generation when an asset is updated.
 
 ### Fixed
 - Plugin now recalls previously selected organization and project ids.
