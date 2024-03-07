@@ -64,6 +64,8 @@ def update_asset(path: str, name: str, description: str,
 
         extension = pathlib.Path(path).suffix
         __upload_file_to_dataset(org_id, project_id, asset_id, version, asset_dataset.id, path, name + extension)
+        ucam.assets.start_transformation(org_id, project_id, asset_id, version, asset_dataset.id,
+                                         ucam.models.WorkflowType.THUMBNAIL_GENERATION)
 
     ucam.interop.open_browser_to_asset_details(org_id, project_id, asset_id, version)
 
