@@ -108,7 +108,8 @@ Follow these steps if is the first time you run the add-on or you have previousl
 5. Ensure `<Create new asset>` option is selected in `Asset` dropdown. 
 6. Enter the new asset name, description and tags. As part of the upload process, this information will be assigned to the asset.
 > **Note**: To add multiple tags, simply separate them with a space in-between.
-7. Select **OK**.
+7. Check `Embed textures` option to export fbx with textures. This will set path mode to `COPY`, otherwise it will be set to `AUTO`.
+8. Select **OK**.
 > **Note**: Once the uploading is complete, you are automatically redirected to the Asset Manager dashboard, so that you can perform additional edit and publish operations from there.
 
 ### Upload the 3D view to an existing asset in Unity Cloud Asset Manager
@@ -130,7 +131,8 @@ Follow these steps if is the first time you run the add-on or you have previousl
 
 6. Change the asset name, description and tags, if needed. As part of the upload process, this information will be assigned to the asset.
 > **Note**: To add multiple tags, simply separate them with a space in-between.
-7. Select **OK**.
+7. Check `Embed textures` option to export fbx with textures. This will set path mode to `COPY`, otherwise it will be set to `AUTO`.
+8. Select **OK**.
 > **Note**: Once the uploading is complete, you are automatically redirected to the Asset Manager dashboard, so that you can perform additional edit and publish operations from there.
 
 ### Logout from Unity Cloud Asset Manager
