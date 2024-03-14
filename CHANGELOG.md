@@ -13,9 +13,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - AM4B is now using Unity Cloud Python SDK 0.6.0
 
-### Removed
-- Removed the `generate preview` checkbox since previews are now automatically generated for an asset created with a single `.fbx` file.
-
 ## [0.2.0] - 2024-02-22
 
 ### Added
