@@ -217,7 +217,8 @@ class UploadToCloudOperator(bpy.types.Operator):
             else:
                 uc_blender_utils.uc_update_asset(self.org_dropdown, self.project_dropdown,
                                                  assets[self.asset_dropdown].id, name, self.description_input, tags,
-                                                 self.embed_textures, assets[self.asset_dropdown].version)
+                                                 self.embed_textures, assets[self.asset_dropdown].version,
+                                                 assets[self.asset_dropdown].is_frozen)
                 self.report({'INFO'}, "Asset was updated in Unity Cloud Asset Manager")
         except Exception:
             self.report({'WARNING'}, "Failed to upload asset to Unity Cloud Asset Manager")
