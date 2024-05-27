@@ -61,10 +61,11 @@ class LogoutFromCloudOperator(bpy.types.Operator):
             uc_asset_manager.logout()
             uc_asset_manager.uninitialize()
         finally:
-            global previous_org_id, previous_project_id, previous_asset_idx
+            global previous_org_id, previous_project_id, previous_asset_idx, previous_asset_version_idx
             previous_org_id = None
             previous_project_id = None
             previous_asset_idx = None
+            previous_asset_version_idx = None
         return {'FINISHED'}
 
 
@@ -85,10 +86,12 @@ def on_selected_project_changed(self, context):
 project_items = []
 organization_items = []
 assets_items = []
+asset_versions_items = []
 assets = {}
 previous_org_id = None
 previous_project_id = None
 previous_asset_idx = None
+previous_asset_version_idx = None
 
 
 def refresh_orgs(self, context):
@@ -120,7 +123,6 @@ def refresh_assets(self, context, org_id, project_id):
     global assets_items, assets
 
     items = list()
-    assets = {}
 
     if org_id is not None and project_id is not None:
         items.append((UploadToCloudOperator.CREATE_ASSET_VALUE, "<Create new asset>", ""))
@@ -134,6 +136,29 @@ def refresh_assets(self, context, org_id, project_id):
     assets_items = items
 
 
+def refresh_asset_versions(self, context, org_id, project_id, asset_id):
+    from . import uc_asset_manager
+    global asset_versions_items
+
+    items = list()
+    assets = {}
+    if org_id is not None and project_id is not None and asset_id is not None:
+        try:
+            asset_versions = uc_asset_manager.get_asset_versions(org_id, project_id, asset_id)
+            for asset in asset_versions:
+                item_name = f"Ver.{asset.version_number}"
+                if asset.parent_version_number is not 0 and not asset.is_frozen:
+                    item_name = f"Ver.{asset.parent_version_number}-Pending-{asset.authoring_info.created}"
+
+                items.append((asset.id, item_name, f"{asset.name}. v:{asset.version}"))
+                items.sort(key=lambda x: x[1])
+                items.reverse()
+                assets[asset.id] = asset
+        except Exception:
+            print(f"Failed to get list of asset versions for {org_id}/{project_id}/{asset_id}")
+    asset_versions_items = items
+
+
 def get_organization(self, context):
     return organization_items
 
@@ -145,8 +170,16 @@ def get_projects(self, context):
 def get_assets(self, context):
     return assets_items
 
+def get_asset_versions(self, context):
+    return asset_versions_items
+
 
 def on_asset_changed(self, context):
+    refresh_asset_versions(self, context, self.org_dropdown, self.project_dropdown, self.asset_dropdown)
+
+    if len(asset_versions_items) > 0:
+        self.version_dropdown = asset_versions_items[0][0]
+
     if self.asset_dropdown == UploadToCloudOperator.CREATE_ASSET_VALUE:
         self.name_input = UploadToCloudOperator.DEFAULT_ASSET_NAME
         self.description_input = ""
@@ -194,6 +227,13 @@ class UploadToCloudOperator(bpy.types.Operator):
         update=on_asset_changed,
     )
 
+    version_dropdown: bpy.props.EnumProperty(
+        items=get_asset_versions,
+        name="Version:",
+        description="Select an asset version. If the selected version is frozen, a new one will be created",
+
+    )
+
     name_input: bpy.props.StringProperty(name="Asset name:", default=DEFAULT_ASSET_NAME)
     description_input: bpy.props.StringProperty(name="Asset description:", default="")
 
@@ -228,6 +268,7 @@ class UploadToCloudOperator(bpy.types.Operator):
             previous_org_id = self.org_dropdown
             previous_project_id = self.project_dropdown
             previous_asset_idx = self.asset_dropdown
+            previous_asset_version_idx = self.version_dropdown
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -244,6 +285,9 @@ class UploadToCloudOperator(bpy.types.Operator):
 
                 if contains_item(assets_items, previous_asset_idx):
                     self.asset_dropdown = previous_asset_idx
+
+                    if contains_item(asset_versions_items, previous_asset_version_idx):
+                        self.version_dropdown = previous_asset_version_idx
         else:
             self.org_dropdown = organization_items[0][0]
 

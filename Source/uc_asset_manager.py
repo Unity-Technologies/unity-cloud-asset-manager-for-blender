@@ -45,24 +45,25 @@ def create_asset(path: str, name: str, description: str, tags_list: List[str], o
 
     __upload_file_to_dataset(org_id, project_id, asset.id, version, datasets[0].id, path, name + extension)
 
-    ucam.assets.freeze_asset_version(org_id, project_id, asset.id, version, "Initial version")
+    try:
+        ucam.assets.freeze_asset_version(org_id, project_id, asset.id, version, "Initial version")
+    except:
+        pass
     ucam.interop.open_browser_to_asset_details(org_id, project_id, asset.id, version)
     return asset.id
 
 
 def update_asset(path: str, name: str, description: str, tags_list: List[str], org_id: str, project_id: str,
                  asset_id: str, asset_version: str, is_frozen: bool):
+
+    if is_frozen:
+        asset_version = ucam.assets.create_unfrozen_asset_version(org_id, project_id, asset_id, asset_version).version
+
     asset_update = AssetUpdate(name,
                                ucam.assets.AssetType.MODEL_3D,
                                description,
                                tags_list)
     if ucam.assets.update_asset(asset_update, org_id, project_id, asset_id, asset_version):
-
-        if not is_frozen:
-            ucam.assets.freeze_asset_version(org_id, project_id, asset_id, asset_version, "Freezing asset version via Blender plugin")
-
-        asset_version = ucam.assets.create_unfrozen_asset_version(org_id, project_id, asset_id, asset_version).version
-
         asset_dataset = ucam.assets.get_dataset_list(org_id, project_id, asset_id, asset_version)[0]
 
         file_list = ucam.assets.get_file_list(org_id, project_id, asset_id, asset_version, asset_dataset.id)
@@ -74,7 +75,10 @@ def update_asset(path: str, name: str, description: str, tags_list: List[str], o
         ucam.assets.start_transformation(org_id, project_id, asset_id, asset_version, asset_dataset.id,
                                          ucam.models.WorkflowType.THUMBNAIL_GENERATION)
 
-        ucam.assets.freeze_asset_version(org_id, project_id, asset_id, asset_version, "Updated model via Blender plugin")
+        try:
+            ucam.assets.freeze_asset_version(org_id, project_id, asset_id, asset_version, "Updated model via Blender plugin")
+        except:
+            pass
 
     ucam.interop.open_browser_to_asset_details(org_id, project_id, asset_id, asset_version)
 
@@ -89,6 +93,10 @@ def get_projects(org_id: str) -> List[Project]:
 
 def get_assets(org_id: str, project_id: str) -> List[Asset]:
     return ucam.assets.get_asset_list(org_id, project_id)
+
+
+def get_asset_versions(org_id: str, project_id: str, asset_id: str) -> List[Asset]:
+    return ucam.assets.search_asset_versions(org_id, project_id, asset_id)
 
 
 def uninitialize():
