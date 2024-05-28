@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.5.0] - 2025-05-23
 - Add version selection whenever an asset is being updated.
+- Upgraded Python SDK dependency to 0.8.2
 
 ## [0.4.0] - 2024-04-19
 
