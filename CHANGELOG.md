@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [0.5.0] - 2025-05-23
-- Fix some transformations not always starting
+- Add version selection whenever an asset is being updated.
 
 ## [0.4.0] - 2024-04-19
 
