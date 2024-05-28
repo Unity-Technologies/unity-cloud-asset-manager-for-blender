@@ -293,6 +293,20 @@ class UploadToCloudOperator(bpy.types.Operator):
 
         return context.window_manager.invoke_props_dialog(self)
 
+    def draw(self, context):
+        layout = self.layout
+        layout.prop(self, "org_dropdown", text="Organization")
+        layout.prop(self, "project_dropdown", text="Project")
+        layout.prop(self, "asset_dropdown", text="Asset")
+
+        if self.asset_dropdown != self.CREATE_ASSET_VALUE and len(asset_versions_items) > 0:
+            layout.prop(self, "version_dropdown", text="Version")
+
+        layout.prop(self, "name_input", text="Asset name")
+        layout.prop(self, "description_input", text="Asset description")
+        layout.prop(self, "tags_input", text="Tags")
+        layout.prop(self, "embed_textures", text="Embed textures")
+
 
 classes = (UC_Category, UploadToCloudOperator, LoginToCloudOperator, LogoutFromCloudOperator)
 
