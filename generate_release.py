@@ -37,6 +37,9 @@ def pull_changes(repo, remote_name):
 
 def push_changes(repo, remote_name, local_branch):
     print(f"Pushing changes to branch {local_branch}...")
+    repo.git.add(all=True)
+    repo.git.commit('-m', 'Update public repo')
+
     run_subtree_command(repo,["push", "--prefix=PublicRepo/", remote_name, local_branch])
 
 
