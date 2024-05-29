@@ -44,12 +44,21 @@ def create_asset(path: str, name: str, description: str, tags_list: List[str], o
     extension = pathlib.Path(path).suffix
 
     __upload_file_to_dataset(org_id, project_id, asset.id, version, datasets[0].id, path, name + extension)
+
+    try:
+        ucam.assets.freeze_asset_version(org_id, project_id, asset.id, version, "Initial version")
+    except:
+        pass
     ucam.interop.open_browser_to_asset_details(org_id, project_id, asset.id, version)
     return asset.id
 
 
-def update_asset(path: str, name: str, description: str,
-                 tags_list: List[str], org_id: str, project_id: str, asset_id: str, asset_version: str):
+def update_asset(path: str, name: str, description: str, tags_list: List[str], org_id: str, project_id: str,
+                 asset_id: str, asset_version: str, is_frozen: bool):
+
+    if is_frozen:
+        asset_version = ucam.assets.create_unfrozen_asset_version(org_id, project_id, asset_id, asset_version).version
+
     asset_update = AssetUpdate(name,
                                ucam.assets.AssetType.MODEL_3D,
                                description,
@@ -66,6 +75,11 @@ def update_asset(path: str, name: str, description: str,
         ucam.assets.start_transformation(org_id, project_id, asset_id, asset_version, asset_dataset.id,
                                          ucam.models.WorkflowType.THUMBNAIL_GENERATION)
 
+        try:
+            ucam.assets.freeze_asset_version(org_id, project_id, asset_id, asset_version, "Updated model via Blender plugin")
+        except:
+            pass
+
     ucam.interop.open_browser_to_asset_details(org_id, project_id, asset_id, asset_version)
 
 
@@ -79,6 +93,10 @@ def get_projects(org_id: str) -> List[Project]:
 
 def get_assets(org_id: str, project_id: str) -> List[Asset]:
     return ucam.assets.get_asset_list(org_id, project_id)
+
+
+def get_asset_versions(org_id: str, project_id: str, asset_id: str) -> List[Asset]:
+    return ucam.assets.search_asset_versions(org_id, project_id, asset_id)
 
 
 def uninitialize():
