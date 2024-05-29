@@ -33,13 +33,13 @@ def uc_create_asset(org_id: str, project_id: str, name: str, description: str, t
 
 
 def uc_update_asset(org_id: str, project_id: str, asset_id: str, name: str, description: str, tags_list: List[str],
-                    embed_textures: bool, asset_version: str, is_frozen: bool):
+                    embed_textures: bool, asset_version: str):
     temp_dir = tempfile.mkdtemp()
     temp_fbx_file = os.path.join(temp_dir, f"{name}.fbx")
     try:
         _export_fbx(temp_fbx_file, embed_textures)
 
         from . import uc_asset_manager
-        uc_asset_manager.update_asset(temp_fbx_file, name, description, tags_list, org_id, project_id, asset_id, asset_version, is_frozen)
+        uc_asset_manager.update_asset(temp_fbx_file, name, description, tags_list, org_id, project_id, asset_id, asset_version)
     finally:
         shutil.rmtree(temp_dir)
