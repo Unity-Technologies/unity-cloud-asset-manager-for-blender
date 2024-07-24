@@ -4,13 +4,24 @@ All notable changes to this package will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [0.5.0] - 2025-05-23
+## [0.6.0] - 2024-07-18
+
+### Added
+- Ability to select a collection at publish time, to automatically link the asset to.
+
+### Changed
+- When selecting an organization, the first project in it is no longer selected by default. Thus preventing loading a project' assets when selecting an organization.
+- Refactored the content of the Source folder to improve readability and clarity
+- At publish time, asset is now automatically frozen.
+- Thumbnail is published locally temporarily (as we disabled the transformation)
+
+## [0.5.0] - 2024-05-23
 
 ### Added
 - Add version selection whenever an asset is being updated.
 
 ### Changed
-- Upgraded Python SDK dependency to 0.8.2
+- Upgraded Python SDK dependency to 0.8.2.
 
 ## [0.4.0] - 2024-04-19
 

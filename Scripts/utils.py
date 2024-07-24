@@ -17,8 +17,6 @@ def get_platform_name(system: str, machine: str) -> str:
     if system == "windows":
         if machine == "amd64" or machine == "x86_64":
             name = "win_amd64"
-        elif machine == "arm64":
-            name = "win_arm64"
     elif system == "darwin":
         name = "macosx_13_0_universal2"
     else:
@@ -26,7 +24,7 @@ def get_platform_name(system: str, machine: str) -> str:
     return name
 
 
-sdk_version = "0.8.2"
+sdk_version = "0.9.1"
 protocol = "https://"
 domain = "transformation.unity.com"
 url_format = f"{protocol}{domain}/downloads/pythonsdks/release/{sdk_version}/unity_cloud-{sdk_version}-py3-none-{{0}}.whl"
@@ -38,10 +36,7 @@ operation_systems: dict[OperationSystem, dict[str, str]] = {
 
     OperationSystem.windows: {
         get_platform_name("windows", "amd64"):
-        url_format.format("win_amd64"),
-
-        get_platform_name("windows", "arm64"):
-        url_format.format("win_arm64"),
+        url_format.format("win_amd64")
     }
 }
 

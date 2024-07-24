@@ -41,7 +41,7 @@ To install and use the AM4 Blender add-on, you need:
 
 AM4 Blender is compatible with:
 
-- Windows x64/Arm64
+- Windows x64
 - Mac x64/Arm64
 
 ### Licenses
@@ -106,7 +106,7 @@ Follow these steps if is the first time you run the add-on or you have previousl
 
 4. Select a target organization and a project. If you don't have one, you can refer to the [create a new project guide](https://docs.unity.com/cloud/en-us/asset-manager/new-asset-manager-project).
 5. Ensure `<Create new asset>` option is selected in `Asset` dropdown. 
-6. Enter the new asset name, description and tags. As part of the upload process, this information will be assigned to the asset.
+6. Enter the new asset name, description, collection and tags. As part of the upload process, this information will be assigned to the asset.
 > **Note**: To add multiple tags, simply separate them with a space in-between.
 7. Check `Embed textures` option to export fbx with textures. This will set path mode to `COPY`, otherwise it will be set to `AUTO`.
 8. Select **OK**.
@@ -126,14 +126,11 @@ Follow these steps if is the first time you run the add-on or you have previousl
 4. Select a target organization and a project. If you don't have one, you can refer to the [create a new project guide](https://docs.unity.com/cloud/en-us/asset-manager/new-asset-manager-project).
 5. In `Asset` dropdown select the asset you want to update. Add-on will fetch asset name, asset versions, description and tags.
 > **Note**: During uploading, any existing files in the asset will be removed.
-
-![popup](Documentation/Images/popup_update.png)
-
-6. Select the version you want to update. If you select a frozen version (which will be indicated as "Ver.1", "Ver.2" and so on), a new pending version will be created off of it.
-Selecting a pending version (which will be indicated as "Ver.0" or "Ver.X-Pending-{creation-date}") will simply update it.
-
-7. Change the asset name, description and tags, if needed. As part of the upload process, this information will be assigned to the asset.
+6. Select the version you want to update. A new version will be created off of it.
+7. Change the asset name, description, collection and tags, if needed. As part of the upload process, this information will be assigned to the asset.
 > **Note**: To add multiple tags, simply separate them with a space in-between.
+
+> **Note**: Selecting a collection will only ensure the asset is added to that collection. It will have no impact on any previously linked collection.
 8. Check `Embed textures` option to export fbx with textures. This will set path mode to `COPY`, otherwise it will be set to `AUTO`.
 9. Select **OK**.
 > **Note**: Once the uploading is complete, you are automatically redirected to the Asset Manager dashboard, so that you can perform additional edit and publish operations from there.
