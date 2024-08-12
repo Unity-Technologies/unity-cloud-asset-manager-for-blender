@@ -5,7 +5,6 @@ import shutil
 from typing import List
 from bpy.types import Menu
 from .uc_wheel_installation import install_unity_cloud
-from . import uc_asset_manager
 
 ############### Constants
 

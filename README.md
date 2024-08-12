@@ -23,6 +23,7 @@ To connect and find support, join the [Help & Support page](https://cloud.unity.
     - [Logout from Unity Cloud Asset Manager](#logout-from-unity-cloud-asset-manager)
   - [Troubleshooting](#troubleshooting)
     - [CERTIFICATE\_VERIFY\_FAILED when building the add-on on MacOS](#certificate_verify_failed-when-building-the-add-on-on-macos)
+    - [Trouble when installing the addon](#trouble-when-installing-the-addon)
     - [Security limitations](#security-limitations)
   - [See also](#see-also)
   - [Tell us what you think!](#tell-us-what-you-think)
@@ -165,6 +166,12 @@ cd /Applications/Python\ 3.x/
 ```
 pip install certifi
 ```
+
+### Trouble when installing the addon
+
+1. When installing the addon, there is an automatic process that tries to install the Unity Cloud Python SDK in Blender's integrated python environment. Depending on the setup, this step is prevented by the system and results in an exception (`Error: No module named 'unity_cloud'`).
+For those use cases, running Blender with admin privileges might be necessary to make this step possible. Note that this will only be needed once at install time ; any subsequent session of Blender can run without elevated privileges.
+2. If you are replacing an version of the addon with another, be sure to close Blender in between. Blender has a tendency to keep outdated code in memory even after you uninstall an addon, which will create conflicts with the new version.
 
 ### Security limitations
 
