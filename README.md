@@ -24,6 +24,7 @@ To connect and find support, join the [Help & Support page](https://cloud.unity.
   - [Troubleshooting](#troubleshooting)
     - [CERTIFICATE\_VERIFY\_FAILED when building the add-on on MacOS](#certificate_verify_failed-when-building-the-add-on-on-macos)
     - [Trouble when installing the addon](#trouble-when-installing-the-addon)
+    - [Failed to upload asset - cannot render, no camera](#failed-to-upload-asset---cannot-render-no-camera)
     - [Security limitations](#security-limitations)
   - [See also](#see-also)
   - [Tell us what you think!](#tell-us-what-you-think)
@@ -32,10 +33,8 @@ To connect and find support, join the [Help & Support page](https://cloud.unity.
 
 ### System requirements
 
-To build the AM4 Blender add-on, you need Python 3.x installed on your machine.
-
 To install and use the AM4 Blender add-on, you need:
-- Blender 3.x installed on your machine
+- Blender installed on your machine (guaranteed support from versions 3.x to 4.1.x)
 - The right permissions to use Asset Manager. See [Get Started with Asset Manager](https://docs.unity.com/cloud/en-us/asset-manager/get-started) for more details.
 
 ### Supported platforms
@@ -172,6 +171,11 @@ pip install certifi
 1. When installing the addon, there is an automatic process that tries to install the Unity Cloud Python SDK in Blender's integrated python environment. Depending on the setup, this step is prevented by the system and results in an exception (`Error: No module named 'unity_cloud'`).
 For those use cases, running Blender with admin privileges might be necessary to make this step possible. Note that this will only be needed once at install time ; any subsequent session of Blender can run without elevated privileges.
 2. If you are replacing an version of the addon with another, be sure to close Blender in between. Blender has a tendency to keep outdated code in memory even after you uninstall an addon, which will create conflicts with the new version.
+
+### Failed to upload asset - cannot render, no camera
+
+When uploading an asset, you might run into an error `Failed to upload asset to Unity Cloud Asset Manager`, with additional details `RuntimeError: Error: Cannot render, no camera`.
+This error is thrown because AM4B uses the camera to render a preview before uploading the asset. If you don't have any camera on your scene, you'll need to add one.
 
 ### Security limitations
 
