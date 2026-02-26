@@ -1,3 +1,8 @@
+> [!IMPORTANT]<br /> **Deprecation notice**<br />
+The Asset Manager for Blender add-on is deprecated and is no longer being actively developed or supported by Unity. The add-on doesn't support recent versions of Blender and won't receive future updates or bug fixes.<br />
+**Recommended alternative**<br />
+To integrate external digital content creation (DCC) tools with Unity Asset Manager, use the [Unity Cloud Python SDK](https://docs.unity.com/en-us/cloud/asset-manager/python-sdk) and the associated [Command-Line Interface (CLI) tool](https://github.com/Unity-Technologies/unity-cloud-python-sdk-samples/tree/main/bulk_upload_cli).
+
 # Asset Manager for Blender
 
 Use the Asset Manager for Blender (AM4B) add-on to integrate the Unity Cloud Asset Manager service within your [Blender](https://www.blender.org/) workflows.
